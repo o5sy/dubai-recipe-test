@@ -20,6 +20,16 @@ pnpm lint         # 린트 검사
 pnpm format       # 코드 포맷팅
 ```
 
+## Git 브랜치 전략
+
+- **main**: 기본 브랜치, 릴리즈 버전 코드 형상 관리
+- **develop**: 주 개발 브랜치
+- **feat/***: 기능 단위 브랜치 (develop에서 분기)
+
+```
+main ← develop ← feat/feature-name
+```
+
 ## 개발 원칙
 
 TDD & Tidy First 원칙 준수 (.claude/plan.md 참고)
