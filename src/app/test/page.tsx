@@ -1,14 +1,46 @@
+'use client';
+
+import { useState } from 'react';
+import { useRouter } from 'next/navigation';
+import { questions } from '@/data/questions';
+import type { MBTIValue } from '@/types/question';
+import { calculateMBTI } from '@/utils/calculateMBTI';
+import ProgressBar from '@/components/test/ProgressBar';
+import QuestionCard from '@/components/test/QuestionCard';
+
 export default function TestPage() {
+  const router = useRouter();
+  const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
+  const [answers, setAnswers] = useState<Record<string, MBTIValue>>({});
+
+  const totalQuestions = questions.length;
+  const currentQuestion = questions[currentQuestionIndex];
+
+  const handleAnswer = (value: MBTIValue) => {
+    const newAnswers = { ...answers, [currentQuestion.id]: value };
+    setAnswers(newAnswers);
+
+    if (currentQuestionIndex < totalQuestions - 1) {
+      setCurrentQuestionIndex(currentQuestionIndex + 1);
+    } else {
+      const mbtiType = calculateMBTI(newAnswers);
+      router.push(`/result/${mbtiType}`);
+    }
+  };
+
   return (
     <div className="flex min-h-screen flex-col items-center justify-center px-4 py-8">
-      <main className="flex w-full max-w-md flex-col items-center text-center">
-        <h1 className="text-2xl font-bold text-[var(--color-chocolate)]">
-          테스트 페이지
-        </h1>
-        <p className="mt-4 text-[var(--color-text-secondary)]">
-          T4에서 질문 UI가 구현될 예정입니다
-        </p>
-      </main>
+      <div className="w-full max-w-md">
+        <ProgressBar
+          current={currentQuestionIndex + 1}
+          total={totalQuestions}
+        />
+        <QuestionCard
+          key={currentQuestionIndex}
+          question={currentQuestion}
+          onAnswer={handleAnswer}
+        />
+      </div>
     </div>
   );
 }
