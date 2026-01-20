@@ -24,7 +24,7 @@ export default function TestPage() {
       setCurrentQuestionIndex(currentQuestionIndex + 1);
     } else {
       const mbtiType = calculateMBTI(newAnswers);
-      router.push(`/result/${mbtiType}`);
+      router.push(`/result/${mbtiType.toLowerCase()}`);
     }
   };
 
