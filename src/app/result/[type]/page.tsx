@@ -1,6 +1,7 @@
 import { results } from '@/data/results';
 import { notFound } from 'next/navigation';
 import Link from 'next/link';
+import ShareButtons from '@/components/result/ShareButtons';
 
 interface ResultPageProps {
   params: Promise<{
@@ -92,17 +93,7 @@ export default async function ResultPage({ params }: ResultPageProps) {
         </div>
 
         {/* 공유 버튼 영역 */}
-        <div className="mb-8 w-full">
-          <h2 className="mb-4 text-center text-lg font-semibold text-[var(--color-chocolate)]">
-            결과 공유하기
-          </h2>
-          <div className="grid grid-cols-2 gap-3 sm:grid-cols-4">
-            <button className="btn-secondary text-sm">카카오톡</button>
-            <button className="btn-secondary text-sm">인스타그램</button>
-            <button className="btn-secondary text-sm">X (트위터)</button>
-            <button className="btn-secondary text-sm">링크 복사</button>
-          </div>
-        </div>
+        <ShareButtons type={type} resultName={result.name} />
 
         {/* 다시 하기 버튼 */}
         <Link href="/test" className="btn-primary">
