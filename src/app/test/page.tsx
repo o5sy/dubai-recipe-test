@@ -38,6 +38,7 @@ export default function TestPage() {
         <QuestionCard
           key={currentQuestionIndex}
           question={currentQuestion}
+          questionNumber={currentQuestionIndex + 1}
           onAnswer={handleAnswer}
         />
       </div>
