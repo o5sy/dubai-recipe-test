@@ -24,6 +24,8 @@ export interface Answer {
 export interface Question {
   /** 질문 고유 ID */
   id: string;
+  /** 상황 설명 */
+  situation: string;
   /** 질문 내용 */
   question: string;
   /** 측정하는 MBTI 축 */
