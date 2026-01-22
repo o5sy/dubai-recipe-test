@@ -5,6 +5,8 @@ import AnswerButton from './AnswerButton';
 interface QuestionCardProps {
   /** 표시할 질문 */
   question: Question;
+  /** 현재 질문 번호 (1부터 시작) */
+  questionNumber: number;
   /** 답변 선택 핸들러 */
   onAnswer: (value: MBTIValue) => void;
 }
@@ -14,13 +16,19 @@ interface QuestionCardProps {
  */
 export default function QuestionCard({
   question,
+  questionNumber,
   onAnswer,
 }: QuestionCardProps) {
   return (
     <div className="card animate-fade-in">
-      <h2 className="text-xl font-bold text-[var(--color-chocolate)] mb-6 leading-relaxed">
-        {question.question}
-      </h2>
+      <div className="mb-6">
+        <p className="text-base font-semibold text-[var(--color-pistachio)] mb-3">
+          STEP{questionNumber}. {question.situation}
+        </p>
+        <h2 className="text-2xl font-bold text-[var(--color-chocolate)] leading-relaxed">
+          {question.question}
+        </h2>
+      </div>
       <div className="flex flex-col gap-4">
         {question.options.map((option, index) => (
           <AnswerButton
