@@ -5,10 +5,10 @@ import { useRouter } from 'next/navigation';
 import { questions } from '@/data/questions';
 import type { MBTIValue } from '@/types/question';
 import { calculateMBTI } from '@/utils/calculateMBTI';
-import ProgressBar from '@/components/test/ProgressBar';
-import QuestionCard from '@/components/test/QuestionCard';
+import ProgressBar from '@/components/question/ProgressBar';
+import QuestionCard from '@/components/question/QuestionCard';
 
-export default function TestPage() {
+export default function QuestionPage() {
   const router = useRouter();
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
   const [answers, setAnswers] = useState<Record<string, MBTIValue>>({});
