@@ -27,7 +27,7 @@ export default function Home() {
         </p>
 
         {/* 시작 버튼 */}
-        <Link href="/test" className="btn-primary text-lg">
+        <Link href="/question" className="btn-primary text-lg">
           테스트 시작하기
         </Link>
 

@@ -2,6 +2,7 @@ import { results } from '@/data/results';
 import { notFound } from 'next/navigation';
 import Link from 'next/link';
 import ShareButtons from '@/components/result/ShareButtons';
+import CitizenCard from '@/components/result/CitizenCard';
 
 interface ResultPageProps {
   params: Promise<{
@@ -32,11 +33,23 @@ export default async function ResultPage({ params }: ResultPageProps) {
         <div className="mb-8 text-center">
           <div className="mb-4 text-6xl">🍪</div>
           <h1 className="mb-2 text-3xl font-bold text-[var(--color-chocolate)]">
-            {result.name}
+            시민증 발급 완료!
           </h1>
           <p className="text-sm font-medium text-[var(--color-cookie)]">
-            {result.type}
+            당신은 이제 두쫀쿠 세계의 시민입니다.
           </p>
+        </div>
+
+        {/* 시민증 카드 */}
+        <div className="mb-10">
+          <CitizenCard
+            imageUrl={`/img/${result.type}.png`}
+            name="Seungyeon Oh"
+            traits={[result.description]}
+            type={result.type}
+            regDate="2024-01-01"
+            siteUrl="https://dujjongku-test.example.com"
+          />
         </div>
 
         {/* 성격 설명 카드 */}
@@ -96,7 +109,7 @@ export default async function ResultPage({ params }: ResultPageProps) {
         <ShareButtons type={type} resultName={result.name} />
 
         {/* 다시 하기 버튼 */}
-        <Link href="/test" className="btn-primary">
+        <Link href="/question" className="btn-primary">
           테스트 다시 하기
         </Link>
 
