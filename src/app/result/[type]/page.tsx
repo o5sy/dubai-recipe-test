@@ -3,6 +3,7 @@ import { notFound } from 'next/navigation';
 import Link from 'next/link';
 import ShareButtons from '@/components/result/ShareButtons';
 import CitizenCard from '@/components/result/CitizenCard';
+import { getCharacterImagePathByMbtiType } from '@/utils/getImagePath';
 
 interface ResultPageProps {
   params: Promise<{
@@ -43,7 +44,7 @@ export default async function ResultPage({ params }: ResultPageProps) {
         {/* 시민증 카드 */}
         <div className="mb-10">
           <CitizenCard
-            imageUrl={`/img/${result.type}.png`}
+            imageUrl={getCharacterImagePathByMbtiType(result.type)}
             name="Seungyeon Oh"
             traits={[result.description]}
             type={result.type}

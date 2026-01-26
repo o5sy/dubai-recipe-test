@@ -1,4 +1,5 @@
 import CitizenCard from '@/components/result/CitizenCard';
+import { getCharacterImagePathByMbtiType } from '@/utils/getImagePath';
 
 export default function TempPage() {
   return (
@@ -8,7 +9,7 @@ export default function TempPage() {
         regDate="2026.01.24"
         siteUrl="www.dujjonku.fun"
         type="은은한 장인형 두쫀쿠"
-        imageUrl="/img/istj.png"
+        imageUrl={getCharacterImagePathByMbtiType('ISTJ')}
         traits={[
           '성실하고 책임감이 강함',
           '논리적이고 분석적인 사고방식',
