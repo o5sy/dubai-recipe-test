@@ -59,7 +59,7 @@ export default async function ResultPage({ params }: ResultPageProps) {
             당신은 이런 두쫀쿠예요
           </h2>
           <p className="leading-relaxed text-[var(--color-text-secondary)]">
-            {result.description}
+            {result.description.coreTexture}
           </p>
         </div>
 
