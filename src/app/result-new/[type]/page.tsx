@@ -45,71 +45,56 @@ export default async function ResultPage({ params }: ResultPageProps) {
             imageUrl={getCharacterImagePathByMbtiType(result.type)}
             name="Seungyeon Oh"
             traits={['강력한 탄성 외피', '직설적 고소함', '스릴 넘치는 풍미']}
-            type={result.type}
+            type={result.name}
             regDate="2024-01-01"
             siteUrl="https://dujjongku-test.example.com"
           />
         </div>
 
-        {/* Recipe for your Soul 섹션 */}
+        {/* 유형 설명 */}
         <div className="mb-10 w-full">
           <div className="mb-4 flex items-center gap-2">
-            <span className="text-2xl">🍪</span>
+            {/* <span className="text-2xl">🍪</span> */}
             <h2 className="text-xl font-bold text-[var(--color-chocolate)]">
-              Recipe for your Soul
+              당신은 이런 두쫀쿠예요
             </h2>
           </div>
 
-          {/* 상세 설명 카드들 */}
           <div className="space-y-4">
-            {/* 성격 설명 */}
             <div className="rounded-2xl bg-white p-6 shadow-sm">
-              <h3 className="mb-3 text-base font-semibold text-[var(--color-chocolate)]">
-                당신은 이런 두쫀쿠예요
+              <h3 className="mb-3 text-base font-semibold text-pistachio-dark">
+                쫀득한 본모습
               </h3>
-              <p className="text-sm leading-relaxed text-[var(--color-text-secondary)]">
-                {result.description}
-              </p>
+              <div className="flex flex-col gap-1 text-secondary">
+                {result.description.coreTexture
+                  .slice(0, 3)
+                  .map((core, index) => (
+                    <div key={index} className="flex items-center gap-1.5">
+                      <span className="text-pistachio text-sm self-start">
+                        •
+                      </span>
+                      <span className="text-chocolate text-sm">{core}</span>
+                    </div>
+                  ))}
+              </div>
             </div>
 
-            {/* 강점 */}
             <div className="rounded-2xl bg-white p-6 shadow-sm">
-              <h3 className="mb-3 text-base font-semibold text-[var(--color-chocolate)]">
-                당신의 강점
+              <h3 className="mb-3 text-base font-semibold text-pistachio-dark">
+                바삭한 속마음
               </h3>
-              <ul className="space-y-2 text-sm text-[var(--color-text-secondary)]">
-                <li className="flex items-start gap-2">
-                  <span className="mt-1 text-xs">✨</span>
-                  <span>창의적이고 독특한 아이디어를 잘 떠올립니다</span>
-                </li>
-                <li className="flex items-start gap-2">
-                  <span className="mt-1 text-xs">✨</span>
-                  <span>긍정적인 에너지로 주변을 밝게 만듭니다</span>
-                </li>
-                <li className="flex items-start gap-2">
-                  <span className="mt-1 text-xs">✨</span>
-                  <span>새로운 경험과 도전을 두려워하지 않습니다</span>
-                </li>
-              </ul>
-            </div>
-
-            {/* 주의할 점 */}
-            <div className="rounded-2xl bg-[var(--color-beige)] p-6 shadow-sm">
-              <h3 className="mb-3 text-base font-semibold text-[var(--color-chocolate)]">
-                이런 점은 조심해요
-              </h3>
-              <ul className="space-y-2 text-sm text-[var(--color-text-secondary)]">
-                <li className="flex items-start gap-2">
-                  <span className="mt-1 text-xs">⚠️</span>
-                  <span>
-                    한 가지에 집중하기보다 여러 일을 동시에 시작하는 경향
-                  </span>
-                </li>
-                <li className="flex items-start gap-2">
-                  <span className="mt-1 text-xs">⚠️</span>
-                  <span>계획을 세우기보다 즉흥적으로 행동할 때가 많아요</span>
-                </li>
-              </ul>
+              <div className="flex flex-col gap-1 text-secondary">
+                {result.description.hiddenFilling
+                  .slice(0, 3)
+                  .map((hidden, index) => (
+                    <div key={index} className="flex items-center gap-1.5">
+                      <span className="text-pistachio text-sm self-start">
+                        •
+                      </span>
+                      <span className="text-chocolate text-sm">{hidden}</span>
+                    </div>
+                  ))}
+              </div>
             </div>
           </div>
         </div>
