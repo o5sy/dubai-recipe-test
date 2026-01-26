@@ -53,7 +53,7 @@ export default function CitizenCard({
           </div>
 
           {/* Right: Info */}
-          <div className="flex-1 flex flex-col justify-center gap-2">
+          <div className="flex-1 flex flex-col justify-start pt-2 gap-2">
             <div className="border-1 rounded-lg px-1 border-cookie/40 di text-xs text-chocolate">
               {/* Name */}
               <div className="border-b-1 border-cookie/30 p-1">
@@ -85,7 +85,7 @@ export default function CitizenCard({
         <div className="filter-paper-texture">
           <div className="px-4 py-1 bg-cookie/80 flex items-center justify-between text-white">
             <span className="font-semibold text-xs">
-              Dujjonku Kingdom Personality Office
+              Dujjonku World Personality Office
             </span>
             <span className="text-xs">Reg. Date: {regDate}</span>
           </div>
