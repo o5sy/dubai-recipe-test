@@ -20,7 +20,10 @@ export interface MBTIScores {
 export interface TestResult {
   type: MBTIType;
   name: string; // 두쫀쿠 유형명
-  description: string; // 성격 설명
+  description: {
+    coreTexture: string[]; // 핵심 질감 설명 (3개 문장)
+    hiddenFilling: string[]; // 숨겨진 필링 설명 (3개 문장)
+  };
   compatibility: {
     good: MBTIType[]; // 잘 맞는 유형
     bad: MBTIType[]; // 안 맞는 유형
