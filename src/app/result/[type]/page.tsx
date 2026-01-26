@@ -46,7 +46,7 @@ export default async function ResultPage({ params }: ResultPageProps) {
           <CitizenCard
             imageUrl={getCharacterImagePathByMbtiType(result.type)}
             name="Seungyeon Oh"
-            traits={[result.description]}
+            traits={['강력한 탄성 외피', '직설적 고소함', '스릴 넘치는 풍미']}
             type={result.type}
             regDate="2024-01-01"
             siteUrl="https://dujjongku-test.example.com"

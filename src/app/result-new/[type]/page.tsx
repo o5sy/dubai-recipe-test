@@ -1,0 +1,180 @@
+import { results } from '@/data/results';
+import { notFound } from 'next/navigation';
+import Link from 'next/link';
+import CitizenCard from '@/components/result/CitizenCard';
+import { getCharacterImagePathByMbtiType } from '@/utils/getImagePath';
+
+interface ResultPageProps {
+  params: Promise<{
+    type: string;
+  }>;
+}
+
+// 16개 MBTI 유형을 모두 정적으로 생성
+export function generateStaticParams() {
+  return Object.keys(results).map((type) => ({
+    type: type.toLowerCase(),
+  }));
+}
+
+export default async function ResultPage({ params }: ResultPageProps) {
+  const { type } = await params;
+  const result = results[type.toUpperCase()];
+
+  // 유효하지 않은 MBTI 타입인 경우 404 표시
+  if (!result) {
+    notFound();
+  }
+
+  return (
+    <div className="flex min-h-screen flex-col items-center justify-center bg-[var(--color-bg)] px-4 py-12">
+      <main className="flex w-full max-w-2xl flex-col items-center">
+        {/* 결과 헤더 */}
+        <div className="mb-8 text-center">
+          <h1 className="mb-2 text-2xl font-bold text-[var(--color-chocolate)]">
+            Congratulations!
+          </h1>
+          <p className="text-sm text-[var(--color-text-secondary)]">
+            Your official Dujjongku ID has been assigned!
+          </p>
+        </div>
+
+        {/* 시민증 카드 */}
+        <div className="mb-12 w-full">
+          <CitizenCard
+            imageUrl={getCharacterImagePathByMbtiType(result.type)}
+            name="Seungyeon Oh"
+            traits={['강력한 탄성 외피', '직설적 고소함', '스릴 넘치는 풍미']}
+            type={result.type}
+            regDate="2024-01-01"
+            siteUrl="https://dujjongku-test.example.com"
+          />
+        </div>
+
+        {/* Recipe for your Soul 섹션 */}
+        <div className="mb-10 w-full">
+          <div className="mb-4 flex items-center gap-2">
+            <span className="text-2xl">🍪</span>
+            <h2 className="text-xl font-bold text-[var(--color-chocolate)]">
+              Recipe for your Soul
+            </h2>
+          </div>
+
+          {/* 상세 설명 카드들 */}
+          <div className="space-y-4">
+            {/* 성격 설명 */}
+            <div className="rounded-2xl bg-white p-6 shadow-sm">
+              <h3 className="mb-3 text-base font-semibold text-[var(--color-chocolate)]">
+                당신은 이런 두쫀쿠예요
+              </h3>
+              <p className="text-sm leading-relaxed text-[var(--color-text-secondary)]">
+                {result.description}
+              </p>
+            </div>
+
+            {/* 강점 */}
+            <div className="rounded-2xl bg-white p-6 shadow-sm">
+              <h3 className="mb-3 text-base font-semibold text-[var(--color-chocolate)]">
+                당신의 강점
+              </h3>
+              <ul className="space-y-2 text-sm text-[var(--color-text-secondary)]">
+                <li className="flex items-start gap-2">
+                  <span className="mt-1 text-xs">✨</span>
+                  <span>창의적이고 독특한 아이디어를 잘 떠올립니다</span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <span className="mt-1 text-xs">✨</span>
+                  <span>긍정적인 에너지로 주변을 밝게 만듭니다</span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <span className="mt-1 text-xs">✨</span>
+                  <span>새로운 경험과 도전을 두려워하지 않습니다</span>
+                </li>
+              </ul>
+            </div>
+
+            {/* 주의할 점 */}
+            <div className="rounded-2xl bg-[var(--color-beige)] p-6 shadow-sm">
+              <h3 className="mb-3 text-base font-semibold text-[var(--color-chocolate)]">
+                이런 점은 조심해요
+              </h3>
+              <ul className="space-y-2 text-sm text-[var(--color-text-secondary)]">
+                <li className="flex items-start gap-2">
+                  <span className="mt-1 text-xs">⚠️</span>
+                  <span>
+                    한 가지에 집중하기보다 여러 일을 동시에 시작하는 경향
+                  </span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <span className="mt-1 text-xs">⚠️</span>
+                  <span>계획을 세우기보다 즉흥적으로 행동할 때가 많아요</span>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        {/* 버튼 영역 */}
+        <div className="mb-8 flex w-full gap-3">
+          <button className="flex-1 rounded-full bg-[var(--color-pistachio)] px-6 py-4 text-sm font-semibold text-white transition-all hover:bg-[var(--color-pistachio-dark)]">
+            공유하기
+          </button>
+          <button className="flex-1 rounded-full bg-[var(--color-chocolate)] px-6 py-4 text-sm font-semibold text-white transition-all hover:opacity-90">
+            이미지로 저장하기
+          </button>
+        </div>
+
+        {/* SNS 공유 섹션 */}
+        <div className="mb-8 w-full">
+          <p className="mb-4 text-center text-sm font-medium text-[var(--color-text-secondary)]">
+            친구에게 공유하기
+          </p>
+          <div className="flex items-center justify-center gap-4">
+            <button
+              className="flex h-12 w-12 items-center justify-center rounded-full bg-white shadow-sm transition-all hover:shadow-md"
+              aria-label="카카오톡 공유"
+            >
+              <span className="text-xl">💬</span>
+            </button>
+            <button
+              className="flex h-12 w-12 items-center justify-center rounded-full bg-white shadow-sm transition-all hover:shadow-md"
+              aria-label="인스타그램 공유"
+            >
+              <span className="text-xl">📷</span>
+            </button>
+            <button
+              className="flex h-12 w-12 items-center justify-center rounded-full bg-white shadow-sm transition-all hover:shadow-md"
+              aria-label="페이스북 공유"
+            >
+              <span className="text-xl">👥</span>
+            </button>
+            <button
+              className="flex h-12 w-12 items-center justify-center rounded-full bg-white shadow-sm transition-all hover:shadow-md"
+              aria-label="X(트위터) 공유"
+            >
+              <span className="text-xl">🐦</span>
+            </button>
+          </div>
+        </div>
+
+        {/* 테스트 다시하기 */}
+        <div className="mb-6">
+          <Link
+            href="/question"
+            className="inline-block rounded-full bg-white px-8 py-3 text-sm font-medium text-[var(--color-chocolate)] shadow-sm transition-all hover:shadow-md"
+          >
+            테스트 다시하기
+          </Link>
+        </div>
+
+        {/* 하단 링크 */}
+        <Link
+          href="/"
+          className="text-sm text-[var(--color-text-muted)] underline hover:text-[var(--color-text-secondary)]"
+        >
+          처음으로 돌아가기
+        </Link>
+      </main>
+    </div>
+  );
+}
