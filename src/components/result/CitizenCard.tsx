@@ -1,7 +1,8 @@
 import { Quicksand } from 'next/font/google';
 import Image from 'next/image';
 
-interface CitizenCard2Props {
+const quicksand = Quicksand({ weight: '700', subsets: ['latin'] });
+interface CitizenCardProps {
   name: string;
   type: string;
   traits: string[];
@@ -10,8 +11,6 @@ interface CitizenCard2Props {
   siteUrl: string;
 }
 
-const quicksand = Quicksand({ weight: '700', subsets: ['latin'] });
-
 export default function CitizenCard({
   name,
   type,
@@ -19,7 +18,7 @@ export default function CitizenCard({
   imageUrl,
   regDate,
   siteUrl,
-}: CitizenCard2Props) {
+}: CitizenCardProps) {
   return (
     <div className={`${quicksand.className} w-full max-w-md mx-auto`}>
       <div className="bg-beige rounded-3xl shadow-xl overflow-hidden">
@@ -58,13 +57,13 @@ export default function CitizenCard({
               {/* Name */}
               <div className="border-b-1 border-cookie/30 p-1">
                 {/* TODO ellipsis 적용 */}
-                <span>Name: </span>
+                <span>이름: </span>
                 <span>{name}</span>
               </div>
 
               {/* Type */}
               <div className="p-1">
-                <span>Type: </span>
+                <span>유형: </span>
                 <span>{type}</span>
               </div>
             </div>
