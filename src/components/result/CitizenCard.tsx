@@ -69,12 +69,14 @@ export default function CitizenCard({
             </div>
 
             {/* Traits */}
-            <div className="space-y-1">
+            <div className="flex flex-wrap gap-2 items-center flex-1">
               {traits.slice(0, 3).map((trait, index) => (
-                <div key={index} className="flex items-center gap-1.5">
-                  <span className="text-pistachio text-xs">•</span>
-                  <span className="text-chocolate text-xs">{trait}</span>
-                </div>
+                <span
+                  key={index}
+                  className="inline-block bg-pistachio/20 border border-pistachio text-chocolate text-xs rounded-full px-3 py-1"
+                >
+                  #{trait}
+                </span>
               ))}
             </div>
           </div>
