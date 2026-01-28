@@ -24,6 +24,7 @@ export interface TestResult {
     coreTexture: string[]; // 핵심 질감 설명 (3개 문장)
     hiddenFilling: string[]; // 숨겨진 필링 설명 (3개 문장)
   };
+  tags: string[]; // 관련 태그
   compatibility: {
     good: MBTIType[]; // 잘 맞는 유형
     bad: MBTIType[]; // 안 맞는 유형

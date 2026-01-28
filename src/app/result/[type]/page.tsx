@@ -3,6 +3,7 @@ import { notFound } from 'next/navigation';
 import Link from 'next/link';
 import CitizenCard from '@/components/result/CitizenCard';
 import { getCharacterImagePathByMbtiType } from '@/utils/getImagePath';
+import { extractTypeNameFromTitle, getTodayDateString } from '@/utils/format';
 
 interface ResultPageProps {
   params: Promise<{
@@ -45,9 +46,9 @@ export default async function ResultPage({ params }: ResultPageProps) {
           <CitizenCard
             imageUrl={getCharacterImagePathByMbtiType(result.type)}
             name="Seungyeon Oh"
-            traits={['강력한 탄성 외피', '직설적 고소함', '스릴 넘치는 풍미']}
-            type={result.name}
-            regDate="2024-01-01"
+            traits={result.tags}
+            type={extractTypeNameFromTitle(result.name)}
+            regDate={getTodayDateString()}
             siteUrl="https://dujjongku-test.example.com"
           />
         </div>
