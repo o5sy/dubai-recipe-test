@@ -19,6 +19,7 @@ export const results: Record<string, TestResult> = {
         '속재료에 들어간 소금 한 꼬집처럼, 자신만의 가치에 대해 진지하게 고민하는 성숙한 면도 있어요.',
       ],
     },
+    tags: ['쫀득한 활력', '바삭한 호기심'],
     compatibility: {
       good: ['INTJ', 'INFJ'],
       bad: ['ISTJ', 'ESTJ'],
@@ -40,6 +41,7 @@ export const results: Record<string, TestResult> = {
         '자신만의 부재료(취미나 취향)를 품고 있으며, 이를 이해해 주는 사람을 만났을 때 가장 쫀득해져요.',
       ],
     },
+    tags: ['따뜻한 온기', '달콤한 이상주의'],
     compatibility: {
       good: ['ENFJ', 'ENTJ'],
       bad: ['ESTP', 'ESFP'],
@@ -61,6 +63,7 @@ export const results: Record<string, TestResult> = {
         '지루한 건 못 참지! 늘 사람들에게 새로운 맛(관점)을 보여주고 싶어 해요.',
       ],
     },
+    tags: ['열정의 반죽', '바삭한 도전정신'],
     compatibility: {
       good: ['INFJ', 'INTJ'],
       bad: ['ISFJ', 'ESFJ'],
@@ -82,6 +85,7 @@ export const results: Record<string, TestResult> = {
         '가끔 툭 던지는 한마디가 딸기 두쫀쿠처럼 반전 매력을 선사해요.',
       ],
     },
+    tags: ['말랑 유연한 반죽', '바스락거리는 생각의 결'],
     compatibility: {
       good: ['ENTJ', 'ESTJ'],
       bad: ['ESFP', 'ISFP'],
@@ -103,6 +107,7 @@ export const results: Record<string, TestResult> = {
         '누군가 도움이 필요할 때 망설임 없이 달콤한 에너지를 나눠주는 따뜻한 리더예요.',
       ],
     },
+    tags: ['모두를 감싸는 외피', '결속의 화이트 초코'],
     compatibility: {
       good: ['INFP', 'ISFP'],
       bad: ['ISTP', 'INTP'],
@@ -124,6 +129,7 @@ export const results: Record<string, TestResult> = {
         "당신 원동력의 핵심은 '의미'예요. 내가 하는 일이 누군가에게 의미가 있을 때 에너지를 얻어요.",
       ],
     },
+    tags: ['저온 유지', '단단한 진심의 필링'],
     compatibility: {
       good: ['ENTP', 'ENFP'],
       bad: ['ESTP', 'ESTJ'],
@@ -145,6 +151,7 @@ export const results: Record<string, TestResult> = {
         '냉동실에서 굳힌 필링처럼, 한 번 정한 목표는 끝까지 밀고 나가요.',
       ],
     },
+    tags: ['고에너지 반죽', '고농축 야망'],
     compatibility: {
       good: ['INTP', 'INFP'],
       bad: ['ISFP', 'ESFP'],
@@ -166,6 +173,7 @@ export const results: Record<string, TestResult> = {
         "결국엔 자신이 설계한 '맛'을 증명해 내고야 마는 고집이 있어요.",
       ],
     },
+    tags: ['철벽 코팅', '영하에서 굳힌 필링'],
     compatibility: {
       good: ['ENFP', 'ENTP'],
       bad: ['ESFJ', 'ISFJ'],
@@ -187,6 +195,7 @@ export const results: Record<string, TestResult> = {
         '사람과 사람 사이를 끈끈하게 이어줘요. 혼자보단 함께 두쫀쿠를 나눠 먹을 때 행복해지죠.',
       ],
     },
+    tags: ['화려한 반죽', '나누고픈 달콤함'],
     compatibility: {
       good: ['ISTJ', 'ISFJ'],
       bad: ['INTJ', 'INFJ'],
@@ -208,6 +217,7 @@ export const results: Record<string, TestResult> = {
         '미래에 대한 걱정보다는 현재의 달콤함을 만끽할 때, 당신의 쫀득함은 절정에 달합니다.',
       ],
     },
+    tags: ['유연한 실루엣', '감성적 카다이프'],
     compatibility: {
       good: ['ENFJ', 'ESFJ'],
       bad: ['ENTJ', 'ESTJ'],
@@ -229,6 +239,7 @@ export const results: Record<string, TestResult> = {
         "당신의 원동력은 '지루함 탈출'이에요. 새로운 자극과 재미있는 이벤트가 있을 때 쫀득해져요.",
       ],
     },
+    tags: ['강력한 탄성 반죽', '갓 볶아낸 카다이프'],
     compatibility: {
       good: ['ISFJ', 'ISTJ'],
       bad: ['INFJ', 'INFP'],
@@ -250,6 +261,7 @@ export const results: Record<string, TestResult> = {
         '자신만의 개인적인 시간과 공간이 확보될 때 가장 쫀득하고 유연한 사고가 가능해져요.',
       ],
     },
+    tags: ['골든 타임 반죽', '정교한 카다이프'],
     compatibility: {
       good: ['ESTJ', 'ESFJ'],
       bad: ['ENFP', 'ENFJ'],
@@ -271,6 +283,7 @@ export const results: Record<string, TestResult> = {
         '모두가 화이트 초코처럼 달콤하게 지내길 바라며, 보이지 않는 곳에서 조화를 유지하려 노력해요.',
       ],
     },
+    tags: ['모두가 좋아하는 반죽', '치밀한 바삭함'],
     compatibility: {
       good: ['ISFP', 'ISTP'],
       bad: ['INTP', 'ENTP'],
@@ -292,6 +305,7 @@ export const results: Record<string, TestResult> = {
         '피스타치오처럼 진득한 애정을 쏟는 만큼, 상대도 그 진심을 알아주길 바라요.',
       ],
     },
+    tags: ['포근한 질감', '헌신적인 달콤함'],
     compatibility: {
       good: ['ESFP', 'ESTP'],
       bad: ['ENTP', 'INTJ'],
@@ -313,6 +327,7 @@ export const results: Record<string, TestResult> = {
         '소중한 사람들 앞에서는 엉뚱한 유머를 던지는 귀여운 쫀득함이 숨어 있어요.',
       ],
     },
+    tags: ['고성능 반죽', '흐트러짐 없는 카다이프'],
     compatibility: {
       good: ['INTP', 'ISTP'],
       bad: ['INFP', 'ENFP'],
@@ -334,6 +349,7 @@ export const results: Record<string, TestResult> = {
         '피스타치오 원물에 충실하듯, 말보다 행동으로 자신의 가치를 증명할 때 자부심을 느껴요.',
       ],
     },
+    tags: ['견고한 반죽', '인내의 숙성'],
     compatibility: {
       good: ['ESFP', 'ESTP'],
       bad: ['ENFP', 'ENTP'],
