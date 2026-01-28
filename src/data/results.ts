@@ -6,7 +6,7 @@ import { TestResult } from '@/types/test';
 export const results: Record<string, TestResult> = {
   ENFP: {
     type: 'ENFP',
-    name: '레인보우 스프링클 두쫀쿠',
+    name: '입안에서 터지는 영감, 꿈빛 파티시엘 두쫀쿠',
     description: {
       coreTexture: [
         '방금 치댄 반죽처럼 에너지가 넘치고 생동감이 가득해요.',
@@ -27,7 +27,7 @@ export const results: Record<string, TestResult> = {
 
   INFP: {
     type: 'INFP',
-    name: '라벤더 드림 두쫀쿠',
+    name: '홈베이킹으로 만든, 몽글몽글 두쫀쿠',
     description: {
       coreTexture: [
         '갓 녹인 마시멜로처럼 온정적이고 말랑말랑한 마음을 가졌기에, 공감 능력이 뛰어나요.',
@@ -48,11 +48,11 @@ export const results: Record<string, TestResult> = {
 
   ENTP: {
     type: 'ENTP',
-    name: '매드 사이언스 두쫀쿠',
+    name: '근거있는 자신감, 자이언트 두쫀쿠',
     description: {
       coreTexture: [
         '막 녹인 뜨거운 반죽 같아요. 어디로 튈지 모르는 에너지와 재치로 주변을 긴장시키죠.',
-        '"왜 꼭 동그란 모양이어야 해?"라고 묻는 타입. 기존 방식보다는 자신만의 독특한 방식을 추구해요.',
+        '"왜 꼭 찹쌀떡 크기여야 해?"라고 묻는 타입. 기존 방식보다는 자신만의 독특한 방식을 추구해요.',
         '진한 코코아의 쌉싸름함처럼 톡 쏘는 위트와 유머 감각을 가졌어요.',
       ],
       hiddenFilling: [
@@ -69,7 +69,7 @@ export const results: Record<string, TestResult> = {
 
   INTP: {
     type: 'INTP',
-    name: '다크초콜릿 에스프레소 두쫀쿠',
+    name: '실험적 레시피의, 멜론튀김 두쫀쿠',
     description: {
       coreTexture: [
         '어떤 아이디어든, 열기에 녹은 마시멜로처럼 유연하게 받아들여요.',
@@ -90,7 +90,7 @@ export const results: Record<string, TestResult> = {
 
   ENFJ: {
     type: 'ENFJ',
-    name: '로즈 캐러멜 두쫀쿠',
+    name: '마음을 사로잡는, 취향저격 두쫀쿠',
     description: {
       coreTexture: [
         '버터와 마시멜로가 완벽하게 녹아든 것처럼, 사람 사이의 관계를 매끄럽게 만들어요.',
@@ -111,7 +111,7 @@ export const results: Record<string, TestResult> = {
 
   INFJ: {
     type: 'INFJ',
-    name: '얼그레이 미스터리 두쫀쿠',
+    name: '베일에 싸인 깊은 맛, 고밀도 두쫀쿠',
     description: {
       coreTexture: [
         '마시멜로와 코코아가 완벽한 비율로 배합되어, 겉은 부드럽고 속은 밀도 높은 원칙주의자예요.',
@@ -132,7 +132,7 @@ export const results: Record<string, TestResult> = {
 
   ENTJ: {
     type: 'ENTJ',
-    name: '골드 카라멜 두쫀쿠',
+    name: '압도적 퀄리티의, 프리미엄 두쫀쿠',
     description: {
       coreTexture: [
         '마시멜로를 녹여 한 덩어리로 뭉치듯, 상황 판단이 빠르고 결단력이 넘쳐요.',
@@ -153,7 +153,7 @@ export const results: Record<string, TestResult> = {
 
   INTJ: {
     type: 'INTJ',
-    name: '마차 라떼 두쫀쿠',
+    name: '이븐하게 만들어진, 심사위원 두쫀쿠',
     description: {
       coreTexture: [
         '마시멜로에 코코아를 듬뿍 넣어 치댄 듯, 흐트러짐 없는 단단한 원칙주의자예요.',
@@ -174,7 +174,7 @@ export const results: Record<string, TestResult> = {
 
   ESFP: {
     type: 'ESFP',
-    name: '파티 프루티 두쫀쿠',
+    name: '오픈런을 부르는, 슈퍼스타 두쫀쿠',
     description: {
       coreTexture: [
         '진열대에 갓 나온 두쫀쿠처럼 주변의 시선을 단숨에 사로잡아요.',
@@ -195,7 +195,7 @@ export const results: Record<string, TestResult> = {
 
   ISFP: {
     type: 'ISFP',
-    name: '체리블라썸 두쫀쿠',
+    name: '디테일이 살아있는, 말랑감성 두쫀쿠',
     description: {
       coreTexture: [
         '정해진 모양보다는 그날의 기분과 영감에 따라 자연스럽게 빚어진 모양을 중요시해요.',
@@ -216,7 +216,7 @@ export const results: Record<string, TestResult> = {
 
   ESTP: {
     type: 'ESTP',
-    name: '카페인 부스트 두쫀쿠',
+    name: '거침없이 빚어낸, 마이웨이 두쫀쿠',
     description: {
       coreTexture: [
         '마시멜로가 녹자마자 코코아를 투입하듯, 생각보다 행동이 앞서는 타입이에요.',
@@ -237,7 +237,7 @@ export const results: Record<string, TestResult> = {
 
   ISTP: {
     type: 'ISTP',
-    name: '넛 브라우니 두쫀쿠',
+    name: '은둔 장인이 만든, 전설의 맛 두쫀쿠',
     description: {
       coreTexture: [
         '마시멜로가 녹고 굳기 직전, 가장 모양잡기 좋은 순간을 알아요. 최적의 효율로 움직이죠.',
@@ -258,7 +258,7 @@ export const results: Record<string, TestResult> = {
 
   ESFJ: {
     type: 'ESFJ',
-    name: '달콤 스트로베리 두쫀쿠',
+    name: '성실함으로 만든, 맞춤제작 두쫀쿠',
     description: {
       coreTexture: [
         '마시멜로와 버터가 녹아들 듯, 누구와도 금방 친해지는 최고의 사교성을 가졌어요.',
@@ -266,9 +266,9 @@ export const results: Record<string, TestResult> = {
         '반죽이 속재료를 감싸듯, 갈등 상황에서 적절한 중재안을 찾아내는 재주가 있어요.',
       ],
       hiddenFilling: [
-        '피스타치오 스프레드가 카다이프 결을 메우듯, 사람들의 필요를 세심하게 채워줄 때 보람을 느껴요.',
-        '카다이프가 바삭한 재미를 주듯, 주변 사람들에게 삶의 활력을 불어넣어 주는 존재예요.',
-        '모두가 화이트 초코처럼 끈끈하고 달콤한 일상을 누리는 것이 당신의 가장 큰 목표예요.',
+        '층층이 쌓인 카다이프 결처럼, 자신만의 기준이 머릿속에 세밀하게 설계되어 있어요.',
+        '겉은 쫀득하고 속은 바삭하듯, 상황에 따라 최적의 공감과 리액션을 선사해요.',
+        '모두가 화이트 초코처럼 달콤하게 지내길 바라며, 보이지 않는 곳에서 조화를 유지하려 노력해요.',
       ],
     },
     compatibility: {
@@ -279,17 +279,17 @@ export const results: Record<string, TestResult> = {
 
   ISFJ: {
     type: 'ISFJ',
-    name: '밀크티 허그 두쫀쿠',
+    name: '여운이 남는 맛, 모닥불 두쫀쿠',
     description: {
       coreTexture: [
-        "팬 위에서 마시멜로가 녹아들 듯, 마음을 따뜻하게 데워주는 '공감 요정'이에요.",
-        '필링이 보이지 않게 반죽으로 꼼꼼히 감싸듯, 소중한 사람들의 아픔이나 비밀을 묵묵히 지켜요.',
+        '마시멜로가 녹아들 듯, 마음을 따뜻하게 데워주는 공감 요정이에요.',
+        '속재료가 보이지 않게 꼼꼼히 감싸듯, 소중한 사람들의 아픔이나 비밀을 묵묵히 지켜요.',
         '말랑한 인상을 주지만, 공동체의 평화를 위해 단단한 중심을 보여주기도 해요.',
       ],
       hiddenFilling: [
-        '속재료를 뭉쳐주는 화이트 초코처럼, 보이지 않는 곳에서 조직의 조화를 만들어내요.',
-        '당신의 내면은 정성스럽게 볶은 카다이프처럼 소중한 사람들과의 추억으로 가득 차 있어요.',
-        '피스타치오 스프레드처럼 진득하고 변함없는 애정을 줘요. "고마워"라는 따뜻한 한마디에 다시 반죽을 치댈 에너지를 얻어요.',
+        '반죽 안에 들어온 속재료처럼, 내 안에 들어온 사람들에게 온 마음을 쏟아요.',
+        '볶은 카다이프의 결처럼 상대의 사소한 특징과 추억을 촘촘히 기억해요.',
+        '피스타치오처럼 진득한 애정을 쏟는 만큼, 상대도 그 진심을 알아주길 바라요.',
       ],
     },
     compatibility: {
@@ -300,7 +300,7 @@ export const results: Record<string, TestResult> = {
 
   ESTJ: {
     type: 'ESTJ',
-    name: '클래식 피스타치오 두쫀쿠',
+    name: '팩트만 골라 담은, 황금비율 두쫀쿠',
     description: {
       coreTexture: [
         '마시멜로가 녹자마자 코코아를 빠르게 섞어내듯, 상황을 즉각 파악하고 효율적인 결론을 내려요.',
@@ -308,9 +308,9 @@ export const results: Record<string, TestResult> = {
         '모양을 딱 잡고 있는 반죽처럼, 외부의 압력에도 흔들리지 않는 강한 자기 주관과 실행력을 가졌죠.',
       ],
       hiddenFilling: [
-        '속재료가 섞이는 순서까지 완벽하게 통제하듯, 목표를 달성하기 위한 계획을 설계해요.',
+        '속재료가 섞이는 순서까지 완벽하게 통제하듯, 목표를 달성하기 위한 레시피(계획)을 설계해요.',
         '피스타치오의 풍미처럼, 성취에 대한 욕구가 매우 진해요. 시스템이 완벽하게 돌아갈 때 고농축 쾌감을 느끼죠.',
-        '당신의 리더십 아래에서는 흩어져 있던 재료들도 하나의 완벽한 필링 반죽이 됩니다.',
+        '소중한 사람들 앞에서는 엉뚱한 유머를 던지는 귀여운 쫀득함이 숨어 있어요.',
       ],
     },
     compatibility: {
@@ -321,7 +321,7 @@ export const results: Record<string, TestResult> = {
 
   ISTJ: {
     type: 'ISTJ',
-    name: '바닐라 빈 두쫀쿠',
+    name: '오차없는 정석 계량, 오리지널 두쫀쿠',
     description: {
       coreTexture: [
         '정해진 레시피를 엄격히 지키듯, 원칙과 질서를 최우선으로 생각해요.',
