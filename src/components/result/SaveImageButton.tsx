@@ -10,7 +10,7 @@ export default function SaveImageButton() {
   return (
     <button
       onClick={handleSaveImage}
-      className="flex-1 rounded-full bg-[var(--color-chocolate)] px-6 py-4 text-sm font-semibold text-white transition-all hover:opacity-90"
+      className="flex-1 cursor-pointer rounded-full bg-[var(--color-chocolate)] px-6 py-4 text-sm font-semibold text-white transition-all hover:opacity-90"
     >
       이미지로 저장하기
     </button>
