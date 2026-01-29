@@ -106,7 +106,7 @@ export default async function ResultPage({ params }: ResultPageProps) {
         </div>
 
         {/* 공유 버튼 영역 */}
-        <ShareButtons type={type} resultName={result.name} />
+        {/* <ShareButtons type={type} resultName={result.name} /> */}
 
         {/* 다시 하기 버튼 */}
         <Link href="/question" className="btn-primary">
