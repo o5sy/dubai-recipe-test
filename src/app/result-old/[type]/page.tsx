@@ -1,9 +1,8 @@
-import { results } from '@/data/results';
-import { notFound } from 'next/navigation';
-import Link from 'next/link';
-import ShareButtons from '@/components/result/ShareButtons';
 import CitizenCard from '@/components/result/CitizenCard';
+import { results } from '@/data/results';
 import { getCharacterImagePathByMbtiType } from '@/utils/getImagePath';
+import Link from 'next/link';
+import { notFound } from 'next/navigation';
 
 interface ResultPageProps {
   params: Promise<{
@@ -107,7 +106,7 @@ export default async function ResultPage({ params }: ResultPageProps) {
         </div>
 
         {/* 공유 버튼 영역 */}
-        <ShareButtons type={type} resultName={result.name} />
+        {/* <ShareButtons type={type} resultName={result.name} /> */}
 
         {/* 다시 하기 버튼 */}
         <Link href="/question" className="btn-primary">

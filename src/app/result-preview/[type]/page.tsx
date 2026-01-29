@@ -1,10 +1,11 @@
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
 
+import CitizenCard from '@/components/result/CitizenCard';
 import ShareSection from '@/components/result/ShareSection';
 import { results } from '@/data/results';
+import { extractTypeNameFromTitle, getTodayDateString } from '@/utils/format';
 import { getCharacterImagePathByMbtiType } from '@/utils/getImagePath';
-import Image from 'next/image';
 
 interface ResultPageProps {
   params: Promise<{
@@ -32,35 +33,25 @@ export default async function ResultPage({ params }: ResultPageProps) {
     <div className="flex min-h-screen flex-col items-center justify-center bg-[var(--color-bg)] px-4 py-12">
       <main className="flex w-full max-w-2xl flex-col items-center">
         {/* 결과 헤더 */}
-        <div className="mb-4 text-center">
-          <h1 className="mb-4 mt-10">
-            <span className="block text-2xl mb-2 font-medium text-[var(--color-text-secondary)]">
-              {result.name.split(',')[0]}
-            </span>
-            <span className="block text-5xl font-bold text-[var(--color-chocolate)]">
-              {result.name.split(',')[1]}
-            </span>
+        <div className="mb-12 text-center">
+          <div className="mb-4 text-6xl">🍪</div>
+          <h1 className="mb-2 text-2xl font-bold text-[var(--color-chocolate)]">
+            시민증 발급 완료
           </h1>
-          <div className="flex flex-wrap justify-center gap-2">
-            {result.tags.map((tag, index) => (
-              <span
-                key={index}
-                className="rounded-full bg-pistachio/20 px-4 py-1.5 text-sm font-medium text-pistachio-dark"
-              >
-                #{tag}
-              </span>
-            ))}
-          </div>
+          <p className="text-sm text-[var(--color-text-secondary)]">
+            당신은 이제 두쫀쿠 세계의 시민입니다!
+          </p>
         </div>
 
-        {/* 캐릭터 이미지 */}
-        <div className="mb-2 w-full">
-          <Image
-            src={getCharacterImagePathByMbtiType(result.type)}
-            alt="Test Result Character Image"
-            width={300}
-            height={400}
-            className="mx-auto mb-4 rounded-xl object-cover"
+        {/* 시민증 카드 */}
+        <div className="mb-16 w-full">
+          <CitizenCard
+            imageUrl={getCharacterImagePathByMbtiType(result.type)}
+            name="Seungyeon Oh"
+            traits={result.tags}
+            type={extractTypeNameFromTitle(result.name)}
+            regDate={getTodayDateString()}
+            siteUrl="https://dujjongku-test.example.com"
           />
         </div>
 
