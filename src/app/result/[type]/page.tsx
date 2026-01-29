@@ -1,9 +1,11 @@
-import { results } from '@/data/results';
-import { notFound } from 'next/navigation';
 import Link from 'next/link';
+import { notFound } from 'next/navigation';
+
 import CitizenCard from '@/components/result/CitizenCard';
-import { getCharacterImagePathByMbtiType } from '@/utils/getImagePath';
+import ShareSection from '@/components/result/ShareSection';
+import { results } from '@/data/results';
 import { extractTypeNameFromTitle, getTodayDateString } from '@/utils/format';
+import { getCharacterImagePathByMbtiType } from '@/utils/getImagePath';
 
 interface ResultPageProps {
   params: Promise<{
@@ -101,48 +103,8 @@ export default async function ResultPage({ params }: ResultPageProps) {
           </div>
         </div>
 
-        {/* 버튼 영역 */}
-        <div className="mb-8 flex w-full gap-3">
-          <button className="flex-1 rounded-full bg-[var(--color-pistachio)] px-6 py-4 text-sm font-semibold text-white transition-all hover:bg-[var(--color-pistachio-dark)]">
-            공유하기
-          </button>
-          <button className="flex-1 rounded-full bg-[var(--color-chocolate)] px-6 py-4 text-sm font-semibold text-white transition-all hover:opacity-90">
-            이미지로 저장하기
-          </button>
-        </div>
-
-        {/* SNS 공유 섹션 */}
-        <div className="mb-8 w-full">
-          <p className="mb-4 text-center text-sm font-medium text-[var(--color-text-secondary)]">
-            친구에게 공유하기
-          </p>
-          <div className="flex items-center justify-center gap-4">
-            <button
-              className="flex h-12 w-12 items-center justify-center rounded-full bg-white shadow-sm transition-all hover:shadow-md"
-              aria-label="카카오톡 공유"
-            >
-              <span className="text-xl">💬</span>
-            </button>
-            <button
-              className="flex h-12 w-12 items-center justify-center rounded-full bg-white shadow-sm transition-all hover:shadow-md"
-              aria-label="인스타그램 공유"
-            >
-              <span className="text-xl">📷</span>
-            </button>
-            <button
-              className="flex h-12 w-12 items-center justify-center rounded-full bg-white shadow-sm transition-all hover:shadow-md"
-              aria-label="페이스북 공유"
-            >
-              <span className="text-xl">👥</span>
-            </button>
-            <button
-              className="flex h-12 w-12 items-center justify-center rounded-full bg-white shadow-sm transition-all hover:shadow-md"
-              aria-label="X(트위터) 공유"
-            >
-              <span className="text-xl">🐦</span>
-            </button>
-          </div>
-        </div>
+        {/* 공유 섹션 */}
+        <ShareSection resultName={result.name} />
 
         {/* 테스트 다시하기 */}
         <div className="mb-6">
