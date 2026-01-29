@@ -1,6 +1,8 @@
 'use client';
 
+import { getCharacterImagePathByMbtiType } from '@/utils/getImagePath';
 import {
+  copyLinkToClipboard,
   shareGeneral,
   shareToFacebook,
   shareToKakao,
@@ -11,15 +13,24 @@ import SaveImageButton from './SaveImageButton';
 import SNSShareButtons from './SNSShareButtons';
 
 interface ShareSectionProps {
+  resultType: string;
   resultName: string;
 }
 
-export default function ShareSection({ resultName }: ShareSectionProps) {
+export default function ShareSection({
+  resultType,
+  resultName,
+}: ShareSectionProps) {
   const shareData = {
     url: typeof window !== 'undefined' ? window.location.href : '',
-    title: `나는 어떤 두쫀쿠일까? 결과를 확인해보세요 🍪`,
+    title: `나는 어떤 두쫀쿠일까? 🍪`,
     description: `나는 ${resultName}!`,
   };
+
+  const imageUrl =
+    typeof window !== 'undefined'
+      ? `${window.location.origin}${getCharacterImagePathByMbtiType(resultType)}`
+      : '';
 
   return (
     <>
@@ -40,10 +51,16 @@ export default function ShareSection({ resultName }: ShareSectionProps) {
 
         {/* SNS 공유 섹션 */}
         <SNSShareButtons
-          onKakaoShare={() => shareToKakao(shareData)}
+          onKakaoShare={() => shareToKakao({ ...shareData, imageUrl })}
           onInstagramShare={() => shareGeneral(shareData)}
           onFacebookShare={() => shareToFacebook(shareData)}
           onTwitterShare={() => shareToTwitter(shareData)}
+          onCopyLink={() =>
+            copyLinkToClipboard({
+              link: shareData.url,
+              onCopy: () => alert('링크가 복사되었습니다!'),
+            })
+          }
         />
       </div>
     </>

@@ -4,14 +4,15 @@ export interface ShareData {
   description: string;
 }
 
-export type ShareDataWithButton = ShareData & {
+export type ShareDataForKakao = ShareData & {
   buttonText?: string;
+  imageUrl?: string;
 };
 
 /**
  * 카카오톡으로 공유
  */
-export const shareToKakao = (data: ShareDataWithButton) => {
+export const shareToKakao = (data: ShareDataForKakao) => {
   // @ts-expect-error Kakao SDK는 전역으로 로드됨
   const kakao = window.Kakao;
 
@@ -25,7 +26,7 @@ export const shareToKakao = (data: ShareDataWithButton) => {
     content: {
       title: data.title,
       description: data.description,
-      imageUrl: `${window.location.origin}/og-image.png`,
+      imageUrl: data.imageUrl || `${window.location.origin}/og-image.png`,
       link: {
         mobileWebUrl: data.url,
         webUrl: data.url,
@@ -90,7 +91,7 @@ export const shareGeneral = (data: ShareData) => {
   }
 };
 
-const copyLinkToClipboard = async ({
+export const copyLinkToClipboard = async ({
   link,
   onCopy,
 }: {

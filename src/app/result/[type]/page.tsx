@@ -104,7 +104,7 @@ export default async function ResultPage({ params }: ResultPageProps) {
         </div>
 
         {/* 공유 섹션 */}
-        <ShareSection resultName={result.name} />
+        <ShareSection resultType={result.type} resultName={result.name} />
 
         {/* 테스트 다시하기 */}
         <div className="mb-6">
