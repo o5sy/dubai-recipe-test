@@ -20,7 +20,10 @@ export default function ProgressBar({ current, total }: ProgressBarProps) {
         <span>{Math.round(percentage)}%</span>
       </div>
       <div className="progress-bar">
-        <div className="progress-bar-fill" style={{ width: `${percentage}%` }} />
+        <div
+          className="progress-bar-fill"
+          style={{ width: `${percentage}%` }}
+        />
       </div>
     </div>
   );
