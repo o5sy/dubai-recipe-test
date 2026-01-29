@@ -58,7 +58,10 @@ export default function ShareSection({
           onCopyLink={() =>
             copyLinkToClipboard({
               link: shareData.url,
-              onCopy: () => alert('링크가 복사되었습니다!'),
+              onCopy: () => {
+                // TODO: 토스트로 변경하기
+                alert('링크가 복사되었습니다!');
+              },
             })
           }
         />
