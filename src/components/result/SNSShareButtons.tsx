@@ -21,12 +21,26 @@ export default function SNSShareButtons({
   const [isKakaoReady, setIsKakaoReady] = useState(false);
 
   useEffect(() => {
-    // @ts-expect-error Kakao SDK는 전역으로 로드됨
-    const kakao = window.Kakao;
-    if (kakao && kakao.isInitialized()) {
-      // eslint-disable-next-line react-hooks/set-state-in-effect
-      setIsKakaoReady(true);
-    }
+    const checkKakao = () => {
+      // @ts-expect-error Kakao SDK는 전역으로 로드됨
+      const kakao = window.Kakao;
+      if (kakao && kakao.isInitialized()) {
+        setIsKakaoReady(true);
+        return true;
+      }
+      return false;
+    };
+
+    if (checkKakao()) return;
+
+    // Kakao SDK가 로드될 때까지 주기적으로 체크
+    const interval = setInterval(() => {
+      if (checkKakao()) {
+        clearInterval(interval);
+      }
+    }, 100);
+
+    return () => clearInterval(interval);
   }, []);
 
   return (
