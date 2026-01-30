@@ -12,8 +12,8 @@ export default function ProgressBar({ current, total }: ProgressBarProps) {
   const percentage = (current / total) * 100;
 
   return (
-    <div className="w-full mb-6">
-      <div className="flex justify-between mb-2 text-sm text-[var(--color-text-secondary)]">
+    <div className="mb-6 w-full">
+      <div className="mb-2 flex justify-between text-sm text-[var(--color-text-secondary)]">
         <span>
           질문 {current}/{total}
         </span>

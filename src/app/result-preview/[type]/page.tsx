@@ -2,7 +2,6 @@ import Link from 'next/link';
 import { notFound } from 'next/navigation';
 
 import CitizenCard from '@/components/result/CitizenCard';
-import ShareSection from '@/components/result/ShareSection';
 import { results } from '@/data/results';
 import { extractTypeNameFromTitle, getTodayDateString } from '@/utils/format';
 import { getCharacterImagePathByMbtiType } from '@/utils/getImagePath';
@@ -66,15 +65,15 @@ export default async function ResultPage({ params }: ResultPageProps) {
 
           <div className="space-y-4">
             <div className="rounded-2xl bg-white p-6 shadow-sm">
-              <h3 className="mb-3 text-base font-semibold text-pistachio-dark">
+              <h3 className="text-pistachio-dark mb-3 text-base font-semibold">
                 쫀득한 본모습
               </h3>
-              <div className="flex flex-col gap-1 text-secondary">
+              <div className="text-secondary flex flex-col gap-1">
                 {result.description.coreTexture
                   .slice(0, 3)
                   .map((core, index) => (
                     <div key={index} className="flex items-center gap-1.5">
-                      <span className="text-pistachio text-sm self-start">
+                      <span className="text-pistachio self-start text-sm">
                         •
                       </span>
                       <span className="text-chocolate text-sm">{core}</span>
@@ -84,15 +83,15 @@ export default async function ResultPage({ params }: ResultPageProps) {
             </div>
 
             <div className="rounded-2xl bg-white p-6 shadow-sm">
-              <h3 className="mb-3 text-base font-semibold text-pistachio-dark">
+              <h3 className="text-pistachio-dark mb-3 text-base font-semibold">
                 바삭한 속마음
               </h3>
-              <div className="flex flex-col gap-1 text-secondary">
+              <div className="text-secondary flex flex-col gap-1">
                 {result.description.hiddenFilling
                   .slice(0, 3)
                   .map((hidden, index) => (
                     <div key={index} className="flex items-center gap-1.5">
-                      <span className="text-pistachio text-sm self-start">
+                      <span className="text-pistachio self-start text-sm">
                         •
                       </span>
                       <span className="text-chocolate text-sm">{hidden}</span>
@@ -104,7 +103,7 @@ export default async function ResultPage({ params }: ResultPageProps) {
         </div>
 
         {/* 공유 섹션 */}
-        <ShareSection resultType={result.type} resultName={result.name} />
+        {/* <ShareSection resultType={result.type} resultName={result.name} /> */}
 
         {/* 테스트 다시하기 */}
         <div className="mb-6">

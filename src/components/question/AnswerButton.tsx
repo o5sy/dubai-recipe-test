@@ -18,7 +18,7 @@ export default function AnswerButton({
   return (
     <button
       onClick={onClick}
-      className={`btn-secondary w-full py-4 px-6 text-left hover:scale-[1.02] transition-transform ${className}`}
+      className={`btn-secondary w-full px-6 py-4 text-left transition-transform hover:scale-[1.02] ${className}`}
     >
       {text}
     </button>

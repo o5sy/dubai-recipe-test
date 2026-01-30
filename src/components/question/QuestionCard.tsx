@@ -22,10 +22,10 @@ export default function QuestionCard({
   return (
     <div className="card animate-fade-in">
       <div className="mb-6">
-        <p className="text-base font-semibold text-[var(--color-pistachio)] mb-3">
+        <p className="mb-3 text-base font-semibold text-[var(--color-pistachio)]">
           STEP{questionNumber}. {question.situation}
         </p>
-        <h2 className="text-2xl font-bold text-[var(--color-chocolate)] leading-relaxed">
+        <h2 className="text-2xl leading-relaxed font-bold text-[var(--color-chocolate)]">
           {question.question}
         </h2>
       </div>
