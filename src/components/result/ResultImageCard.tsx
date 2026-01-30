@@ -1,9 +1,7 @@
 'use client';
 
+import { SERVICE_URL } from '@/constants/app';
 import ResultCard from './ResultCard';
-
-// TODO 다른 곳에서도 사용하면 환경변수로 관리
-const URL = 'https://dubai-recipe.pages.dev';
 
 export interface ResultImageCardProps {
   id: string;
@@ -39,10 +37,10 @@ export default function ResultImageCard({
         </p>
         <a
           className="text-chocolate mt-1 text-base font-bold"
-          href={URL}
+          href={SERVICE_URL}
           target="_blank"
         >
-          {URL}
+          {SERVICE_URL}
         </a>
       </div>
     </div>

@@ -1,5 +1,6 @@
 'use client';
 
+import { SERVICE_URL } from '@/constants/app';
 import { getCharacterImagePathByMbtiType } from '@/utils/getImagePath';
 import { shareAsImage } from '@/utils/imageUtils';
 import {
@@ -42,7 +43,9 @@ export default function ShareSection({ resultCardProps }: ShareSectionProps) {
 
     await new Promise((resolve) => setTimeout(resolve, 100));
 
-    await shareAsImage({ elementId: RESULT_CARD_ID });
+    await shareAsImage({
+      elementId: RESULT_CARD_ID,
+    });
 
     root.unmount();
     document.body.removeChild(container);
