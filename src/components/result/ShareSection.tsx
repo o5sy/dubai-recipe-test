@@ -1,7 +1,7 @@
 'use client';
 
 import { getCharacterImagePathByMbtiType } from '@/utils/getImagePath';
-import { saveAsImage } from '@/utils/imageUtils';
+import { shareAsImage } from '@/utils/imageUtils';
 import {
   copyLinkToClipboard,
   shareGeneral,
@@ -42,7 +42,7 @@ export default function ShareSection({ resultCardProps }: ShareSectionProps) {
 
     await new Promise((resolve) => setTimeout(resolve, 100));
 
-    await saveAsImage({ elementId: RESULT_CARD_ID });
+    await shareAsImage({ elementId: RESULT_CARD_ID });
 
     root.unmount();
     document.body.removeChild(container);
