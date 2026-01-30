@@ -51,7 +51,7 @@ export default function ShareSection({ resultCardProps }: ShareSectionProps) {
   return (
     <>
       {/* 버튼 영역 */}
-      <div className="mb-8 flex w-full gap-3">
+      <div className="mb-10 flex w-full gap-3">
         <GeneralShareButton
           url={shareData.url}
           title={shareData.title}
@@ -60,7 +60,7 @@ export default function ShareSection({ resultCardProps }: ShareSectionProps) {
         <SaveImageButton onSaveImage={handleSaveImage} />
       </div>
 
-      <div className="mb-8 w-full">
+      <div className="mb-10 w-full">
         <p className="text-secondary mb-4 text-center text-sm font-medium">
           친구에게 공유하기
         </p>
