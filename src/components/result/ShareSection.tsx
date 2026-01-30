@@ -45,6 +45,7 @@ export default function ShareSection({ resultCardProps }: ShareSectionProps) {
 
     await shareAsImage({
       elementId: RESULT_CARD_ID,
+      text: `나도 테스트 하러 가기 👉\n${SERVICE_URL}`,
     });
 
     root.unmount();

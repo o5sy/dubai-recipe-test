@@ -4,6 +4,7 @@ interface SaveAsImageOptions {
   elementId: string;
   backgroundColor?: string;
   filename?: string;
+  text?: string;
 }
 
 interface CaptureOptions {
@@ -55,7 +56,7 @@ function canShareImageFile(file: File): boolean {
 /**
  * Web Share API로 이미지 파일 공유
  */
-async function shareImageFile(file: File, title: string): Promise<void> {
+async function shareImageFile(file: File, title?: string): Promise<void> {
   const shareData = {
     files: [file],
     title,
@@ -89,6 +90,7 @@ function downloadImageFile(blob: Blob, filename: string): void {
  */
 export async function shareAsImage({
   elementId,
+  text,
   backgroundColor = '#f5f1e8',
   filename = `${new Date().toISOString()}.png`,
 }: SaveAsImageOptions): Promise<void> {
@@ -106,7 +108,7 @@ export async function shareAsImage({
     // 2. Web Share API 지원 확인 및 공유 시도
     if (canShareImageFile(file)) {
       try {
-        await shareImageFile(file, '두쫀쿠 유형 테스트 결과');
+        await shareImageFile(file, text);
         return;
       } catch (error) {
         // 사용자가 공유를 취소한 경우
