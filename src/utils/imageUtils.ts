@@ -94,15 +94,19 @@ export async function shareAsImage({
   backgroundColor = '#f5f1e8',
   filename = `${new Date().toISOString()}.png`,
 }: SaveAsImageOptions): Promise<void> {
+  console.log('🚀 ~ shareAsImage ~ shareAsImage:', shareAsImage);
   try {
     // 1. HTML 요소를 Blob으로 캡처
     const blob = await captureElementAsBlob(elementId, { backgroundColor });
+    console.log('🚀 ~ shareAsImage ~ blob:', blob);
 
     if (!blob) {
       alert('이미지 생성에 실패했습니다.');
+      console.error('이미지 생성에 실패했습니다.');
       return;
     }
     alert('이미지 생성 성공');
+    console.log('이미지 생성 성공');
 
     const file = new File([blob], filename, { type: 'image/png' });
 
