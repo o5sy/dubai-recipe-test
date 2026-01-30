@@ -29,15 +29,15 @@ export default async function ResultPage({ params }: ResultPageProps) {
   }
 
   return (
-    <div className="flex min-h-screen flex-col items-center justify-center bg-[var(--color-bg)] px-4 py-12">
+    <div className="flex min-h-screen flex-col items-center justify-center bg-(--color-bg) px-4 py-12">
       <main className="flex w-full max-w-2xl flex-col items-center">
         {/* 결과 헤더 */}
         <div className="mb-4 text-center">
           <h1 className="mb-4 mt-10">
-            <span className="block text-2xl mb-2 font-medium text-[var(--color-text-secondary)]">
+            <span className="block text-2xl mb-2 font-medium text-(--color-text-secondary)">
               {result.name.split(',')[0]}
             </span>
-            <span className="block text-5xl font-bold text-[var(--color-chocolate)]">
+            <span className="block text-5xl font-bold text-chocolate break-keep">
               {result.name.split(',')[1]}
             </span>
           </h1>
