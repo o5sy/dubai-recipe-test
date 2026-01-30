@@ -18,12 +18,12 @@ export default function Home() {
 
         {/* 서브타이틀 */}
         <p className="mb-2 text-lg text-[var(--color-text-secondary)]">
-          나와 어울리는 두바이 쫀득 쿠키는?
+          내가 만약 두쫀쿠라면?
         </p>
 
         {/* 설명 */}
         <p className="mb-8 text-sm text-[var(--color-text-muted)]">
-          간단하게 알아보는 나만의 두쫀쿠 유형!
+          간단하게 알아보는 나의 성격 유형!
         </p>
 
         {/* 시작 버튼 */}

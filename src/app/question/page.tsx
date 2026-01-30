@@ -1,12 +1,12 @@
 'use client';
 
-import { useState } from 'react';
-import { useRouter } from 'next/navigation';
+import ProgressBar from '@/components/question/ProgressBar';
+import QuestionCard from '@/components/question/QuestionCard';
 import { questions } from '@/data/questions';
 import type { MBTIValue } from '@/types/question';
 import { calculateMBTI } from '@/utils/calculateMBTI';
-import ProgressBar from '@/components/question/ProgressBar';
-import QuestionCard from '@/components/question/QuestionCard';
+import { useRouter } from 'next/navigation';
+import { useState } from 'react';
 
 export default function QuestionPage() {
   const router = useRouter();
@@ -29,7 +29,7 @@ export default function QuestionPage() {
   };
 
   return (
-    <div className="flex min-h-screen flex-col items-center justify-center px-4 py-8">
+    <div className="flex min-h-screen flex-col items-center px-4 py-10">
       <div className="w-full max-w-md">
         <ProgressBar
           current={currentQuestionIndex + 1}
