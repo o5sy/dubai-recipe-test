@@ -1,6 +1,7 @@
 'use client';
 
 import { getCharacterImagePathByMbtiType } from '@/utils/getImagePath';
+import { saveAsImage } from '@/utils/imageUtils';
 import {
   copyLinkToClipboard,
   shareGeneral,
@@ -8,29 +9,44 @@ import {
   shareToKakao,
   shareToTwitter,
 } from '@/utils/shareUtils';
+import { createRoot } from 'react-dom/client';
 import GeneralShareButton from './GeneralShareButton';
+import ResultImageCard, { ResultImageCardProps } from './ResultImageCard';
 import SaveImageButton from './SaveImageButton';
 import SNSShareButtons from './SNSShareButtons';
 
 interface ShareSectionProps {
-  resultType: string;
-  resultName: string;
+  resultCardProps: Omit<ResultImageCardProps, 'id'>;
 }
 
-export default function ShareSection({
-  resultType,
-  resultName,
-}: ShareSectionProps) {
+export default function ShareSection({ resultCardProps }: ShareSectionProps) {
   const shareData = {
     url: typeof window !== 'undefined' ? window.location.href : '',
     title: `나는 어떤 두쫀쿠일까? 🍪`,
-    description: `나는 ${resultName}!`,
+    description: `나는 ${resultCardProps.name}!`,
   };
 
   const imageUrl =
     typeof window !== 'undefined'
-      ? `${window.location.origin}${getCharacterImagePathByMbtiType(resultType)}`
+      ? `${window.location.origin}${getCharacterImagePathByMbtiType(resultCardProps.type)}`
       : '';
+
+  const handleSaveImage = async () => {
+    const RESULT_CARD_ID = 'result-image-card-to-save';
+
+    const container = document.createElement('div');
+    document.body.appendChild(container);
+
+    const root = createRoot(container);
+    root.render(<ResultImageCard {...resultCardProps} id={RESULT_CARD_ID} />);
+
+    await new Promise((resolve) => setTimeout(resolve, 100));
+
+    await saveAsImage({ elementId: RESULT_CARD_ID });
+
+    root.unmount();
+    document.body.removeChild(container);
+  };
 
   return (
     <>
@@ -41,11 +57,11 @@ export default function ShareSection({
           title={shareData.title}
           description={shareData.description}
         />
-        <SaveImageButton />
+        <SaveImageButton onSaveImage={handleSaveImage} />
       </div>
 
       <div className="mb-8 w-full">
-        <p className="mb-4 text-center text-sm font-medium text-secondary">
+        <p className="text-secondary mb-4 text-center text-sm font-medium">
           친구에게 공유하기
         </p>
 
