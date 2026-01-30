@@ -53,9 +53,9 @@ export default function ShareSection({ resultCardProps }: ShareSectionProps) {
       {/* 버튼 영역 */}
       <div className="mb-10 flex w-full gap-3">
         <GeneralShareButton
-          url={shareData.url}
-          title={shareData.title}
-          description={shareData.description}
+          onShare={() =>
+            shareGeneral({ title: shareData.title, url: shareData.url })
+          }
         />
         <SaveImageButton onSaveImage={handleSaveImage} />
       </div>
