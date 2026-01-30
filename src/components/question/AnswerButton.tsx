@@ -15,9 +15,15 @@ export default function AnswerButton({
   onClick,
   className = '',
 }: AnswerButtonProps) {
+  const handleTouchEnd = (e: React.TouchEvent<HTMLButtonElement>) => {
+    // 터치 종료 시 포커스 제거하여 active 상태 해제
+    e.currentTarget.blur();
+  };
+
   return (
     <button
       onClick={onClick}
+      onTouchEnd={handleTouchEnd}
       className={`btn-secondary w-full px-6 py-4 text-left transition-transform hover:scale-[1.02] ${className}`}
     >
       {text}

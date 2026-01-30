@@ -28,7 +28,7 @@ export default async function ResultPage({ params }: ResultPageProps) {
   }
 
   return (
-    <div className="flex min-h-screen flex-col items-center justify-center bg-(--color-bg) px-4 py-12">
+    <div className="flex min-h-screen flex-col items-center justify-center bg-(--color-bg) px-4 pt-8 pb-20">
       <main className="flex w-full max-w-2xl flex-col items-center">
         {/* 결과 카드 */}
         <ResultCard
@@ -49,7 +49,7 @@ export default async function ResultPage({ params }: ResultPageProps) {
         />
 
         {/* 테스트 다시하기 */}
-        <div className="mb-6">
+        <div className="mb-8">
           <Link
             href="/question"
             className="text-chocolate inline-block rounded-full bg-white px-8 py-3 text-sm font-medium shadow-sm transition-all hover:shadow-md"
