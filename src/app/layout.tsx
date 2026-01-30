@@ -24,6 +24,11 @@ export const metadata: Metadata = {
     title: '두쫀쿠 유형 테스트',
     description: '내가 만약 두쫀쿠라면 어떤 유형일까?',
     type: 'website',
+    images: [
+      {
+        url: `${process.env.NEXT_PUBLIC_BASE_URL}/img/characters/default.png`,
+      },
+    ],
   },
 };
 
