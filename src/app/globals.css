@@ -142,3 +142,14 @@ body {
 .animate-bounce-slow {
   animation: bounce 2s ease-in-out infinite;
 }
+
+/* 이미지 보호 (복사/저장 방지) */
+.no-select-image {
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  -webkit-touch-callout: none;
+  -webkit-user-drag: none;
+  pointer-events: auto;
+}
