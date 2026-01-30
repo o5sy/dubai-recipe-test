@@ -1,4 +1,5 @@
 import KakaoScript from '@/components/KakaoScript';
+import { SERVICE_URL } from '@/constants/app';
 import type { Metadata } from 'next';
 import { Geist } from 'next/font/google';
 import './globals.css';
@@ -26,7 +27,7 @@ export const metadata: Metadata = {
     type: 'website',
     images: [
       {
-        url: `${process.env.NEXT_PUBLIC_BASE_URL}/img/characters/default.png`,
+        url: `${SERVICE_URL}/img/characters/default.png`,
       },
     ],
   },
