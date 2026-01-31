@@ -4,8 +4,7 @@ export interface ShareData {
   description: string;
 }
 
-export type ShareDataForKakao = ShareData & {
-  buttonText?: string;
+type ShareDataForKakao = ShareData & {
   imageUrl?: string;
 };
 
@@ -67,12 +66,11 @@ export const shareToFacebook = (data: ShareData) => {
 /**
  * 일반 공유 (브라우저 공유 API 또는 복사)
  */
-export const shareGeneral = (data: ShareData) => {
+export const shareGeneral = (data: Omit<ShareData, 'description'>) => {
   if (navigator.share) {
     navigator
       .share({
         title: data.title,
-        text: data.description,
         url: data.url,
       })
       .catch((error) => {

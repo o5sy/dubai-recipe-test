@@ -1,7 +1,8 @@
 'use client';
 
+import { SERVICE_URL } from '@/constants/app';
 import { getCharacterImagePathByMbtiType } from '@/utils/getImagePath';
-import { saveAsImage } from '@/utils/imageUtils';
+import { shareAsImage } from '@/utils/imageUtils';
 import {
   copyLinkToClipboard,
   shareGeneral,
@@ -42,7 +43,10 @@ export default function ShareSection({ resultCardProps }: ShareSectionProps) {
 
     await new Promise((resolve) => setTimeout(resolve, 100));
 
-    await saveAsImage({ elementId: RESULT_CARD_ID });
+    await shareAsImage({
+      elementId: RESULT_CARD_ID,
+      text: `나도 테스트 하러 가기 👉\n${SERVICE_URL}`,
+    });
 
     root.unmount();
     document.body.removeChild(container);
@@ -53,9 +57,9 @@ export default function ShareSection({ resultCardProps }: ShareSectionProps) {
       {/* 버튼 영역 */}
       <div className="mb-10 flex w-full gap-3">
         <GeneralShareButton
-          url={shareData.url}
-          title={shareData.title}
-          description={shareData.description}
+          onShare={() =>
+            shareGeneral({ title: shareData.title, url: shareData.url })
+          }
         />
         <SaveImageButton onSaveImage={handleSaveImage} />
       </div>
