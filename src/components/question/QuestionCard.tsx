@@ -9,6 +9,8 @@ interface QuestionCardProps {
   questionNumber: number;
   /** 답변 선택 핸들러 */
   onAnswer: (value: MBTIValue) => void;
+  /** 선택된 답변 값 */
+  selectedValue?: MBTIValue;
 }
 
 /**
@@ -18,6 +20,7 @@ export default function QuestionCard({
   question,
   questionNumber,
   onAnswer,
+  selectedValue,
 }: QuestionCardProps) {
   return (
     <div className="card animate-fade-in">
@@ -35,6 +38,7 @@ export default function QuestionCard({
             key={index}
             text={option.text}
             onClick={() => onAnswer(option.value)}
+            isSelected={option.value === selectedValue}
           />
         ))}
       </div>
