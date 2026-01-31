@@ -22,7 +22,6 @@ export default function SNSShareButtons({
 
   useEffect(() => {
     const checkKakao = () => {
-      // @ts-expect-error Kakao SDK는 전역으로 로드됨
       const kakao = window.Kakao;
       if (kakao && kakao.isInitialized()) {
         setIsKakaoReady(true);

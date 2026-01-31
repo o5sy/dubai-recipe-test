@@ -14,7 +14,6 @@ type ShareDataForKakao = ShareData & {
  * 카카오톡으로 공유
  */
 export const shareToKakao = (data: ShareDataForKakao) => {
-  // @ts-expect-error Kakao SDK는 전역으로 로드됨
   const kakao = window.Kakao;
 
   if (!kakao || !kakao.isInitialized()) {
