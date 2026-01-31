@@ -1,4 +1,5 @@
 import KakaoScript from '@/components/KakaoScript';
+import { SERVICE_URL } from '@/constants/app';
 import type { Metadata } from 'next';
 import { Geist } from 'next/font/google';
 import './globals.css';
@@ -24,6 +25,11 @@ export const metadata: Metadata = {
     title: '두쫀쿠 유형 테스트',
     description: '내가 만약 두쫀쿠라면 어떤 유형일까?',
     type: 'website',
+    images: [
+      {
+        url: `${SERVICE_URL}/img/characters/default.png`,
+      },
+    ],
   },
 };
 

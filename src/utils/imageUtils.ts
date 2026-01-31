@@ -4,100 +4,158 @@ interface SaveAsImageOptions {
   elementId: string;
   backgroundColor?: string;
   filename?: string;
+  text?: string;
+  timeout?: number;
 }
 
-// 모바일 환경 감지
-function isMobile(): boolean {
-  if (typeof window === 'undefined') return false;
-  return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(
-    navigator.userAgent
-  );
+interface CaptureOptions {
+  backgroundColor?: string;
 }
 
-// Web Share API 지원 여부 확인
-function canUseWebShare(): boolean {
-  return (
-    typeof navigator !== 'undefined' &&
-    'share' in navigator &&
-    'canShare' in navigator
-  );
+/**
+ * HTML 요소를 캡처하여 Blob으로 변환
+ */
+async function captureElementAsBlob(
+  elementId: string,
+  options: CaptureOptions = {}
+): Promise<Blob | null> {
+  const { backgroundColor = '#f5f1e8' } = options;
+
+  const element = document.getElementById(elementId);
+  if (!element) {
+    throw new Error('캡처할 요소를 찾을 수 없습니다.');
+  }
+
+  const canvas = await html2canvas(element, {
+    backgroundColor,
+    logging: true, // TODO 기능 안정화 확인되면 삭제
+    scale: 1, // 원본 크기로 설정 (기기 픽셀 비율의 기본값 무시)
+  });
+
+  return new Promise<Blob | null>((resolve, reject) => {
+    canvas.toBlob((blob) => {
+      if (blob) {
+        resolve(blob);
+      } else {
+        reject(null);
+      }
+    }, 'image/png');
+  });
 }
 
-export async function saveAsImage({
+/**
+ * Web Share API로 이미지 파일 공유 가능 여부 확인
+ */
+function canShareImageFile(file: File): boolean {
+  if (typeof navigator === 'undefined' || !navigator.share) {
+    return false;
+  }
+
+  // canShare 메서드로 파일 공유 가능 여부 확인
+  if (navigator.canShare) {
+    const shareData = { files: [file] };
+    return navigator.canShare(shareData);
+  }
+
+  return false;
+}
+
+/**
+ * Web Share API로 이미지 파일 공유
+ */
+async function shareImageFile(file: File, title?: string): Promise<void> {
+  const shareData = {
+    files: [file],
+    title,
+  };
+
+  await navigator.share(shareData);
+}
+
+/**
+ * Blob을 파일로 다운로드
+ */
+function downloadImageFile(blob: Blob, filename: string): void {
+  const url = URL.createObjectURL(blob);
+  const link = document.createElement('a');
+  link.href = url;
+  link.download = filename;
+  link.style.display = 'none';
+
+  document.body.appendChild(link);
+  link.click();
+
+  // 다운로드가 시작될 충분한 시간을 준 후 정리
+  setTimeout(() => {
+    document.body.removeChild(link);
+    URL.revokeObjectURL(url);
+  }, 300);
+}
+
+/**
+ * 이미지 저장/공유 메인 함수
+ */
+export async function shareAsImage({
   elementId,
+  text,
   backgroundColor = '#f5f1e8',
-  filename = `${new Date().getTime()}.png`,
+  filename = `${new Date().toISOString()}.png`,
+  timeout = 3000, // 타임아웃 기본값 3초
 }: SaveAsImageOptions): Promise<void> {
   try {
-    const element = document.getElementById(elementId);
-    if (!element) {
-      console.error('저장할 영역을 찾을 수 없습니다.');
-      return;
-    }
-
-    const canvas = await html2canvas(element, {
-      backgroundColor,
-      useCORS: true,
-      logging: false,
+    // 1. HTML 요소를 Blob으로 캡처 (타임아웃 적용)
+    const timeoutPromise = new Promise<null>((_, reject) => {
+      setTimeout(() => reject(new Error('TIMEOUT')), timeout);
     });
 
-    // Canvas를 Blob으로 변환 (Promise 기반)
-    const blob = await new Promise<Blob | null>((resolve) => {
-      canvas.toBlob(resolve, 'image/png');
+    const blob = await Promise.race([
+      captureElementAsBlob(elementId, { backgroundColor }),
+      timeoutPromise,
+    ]).catch((error) => {
+      if (error instanceof Error && error.message === 'TIMEOUT') {
+        console.error('이미지 생성 타임아웃 에러 발생: ', error);
+        return null;
+      }
+      throw error;
     });
 
     if (!blob) {
-      alert('이미지 생성에 실패했습니다.');
       return;
     }
 
-    // 모바일 환경에서 Web Share API 사용 가능한 경우
-    if (isMobile() && canUseWebShare()) {
-      const file = new File([blob], filename, { type: 'image/png' });
-      const shareData = {
-        files: [file],
-        title: '두쫀쿠 유형 테스트 결과',
-      };
+    const file = new File([blob], filename, { type: 'image/png' });
 
-      if (navigator.canShare(shareData)) {
-        try {
-          await navigator.share(shareData);
+    // 2. Web Share API 지원 확인 및 공유 시도
+    if (canShareImageFile(file)) {
+      try {
+        await shareImageFile(file, text);
+        return;
+      } catch (error) {
+        // 사용자가 공유를 취소한 경우
+        if (
+          error instanceof Error &&
+          (error.name === 'AbortError' || error.name === 'NotAllowedError')
+        ) {
           return;
-        } catch (error) {
-          // 사용자가 공유를 취소하거나 에러 발생 시 폴백
-          console.log('공유가 취소되었거나 실패했습니다:', error);
         }
+
+        // 공유 실패 시 다운로드 시도
+        console.error('이미지 공유 실패, 다운로드 방식으로 전환:', error);
       }
     }
 
-    // 데스크톱 또는 Web Share API 미지원 환경: 다운로드 방식
-    // 새 탭에서 이미지 열기 (모바일에서 사용자가 직접 저장 가능)
-    if (isMobile()) {
-      const url = URL.createObjectURL(blob);
-      const newWindow = window.open(url, '_blank');
-      if (newWindow) {
-        // 새 탭이 열리면 사용자에게 안내
-        setTimeout(() => {
-          alert('이미지를 길게 눌러서 저장해주세요.');
-          URL.revokeObjectURL(url);
-        }, 1000);
-      } else {
-        alert('팝업이 차단되었습니다. 브라우저 설정에서 팝업을 허용해주세요.');
-        URL.revokeObjectURL(url);
-      }
-    } else {
-      // 데스크톱: 기존 다운로드 방식
-      const url = URL.createObjectURL(blob);
-      const link = document.createElement('a');
-      link.href = url;
-      link.download = filename;
-      document.body.appendChild(link);
-      link.click();
-      document.body.removeChild(link);
-      URL.revokeObjectURL(url);
+    // 3. Web Share API 미지원 또는 실패 시 다운로드 시도
+    try {
+      downloadImageFile(blob, filename);
+    } catch (error) {
+      // 다운로드도 실패한 경우
+      console.error('다운로드 실패:', error);
+      alert(
+        '이미지 저장에 실패했습니다.\n브라우저 설정을 확인하거나 스크린샷을 이용해주세요.'
+      );
     }
   } catch (error) {
-    console.error('이미지 저장 중 오류 발생:', error);
-    alert('이미지 저장 중 오류가 발생했습니다.');
+    console.error('이미지 처리 중 오류 발생:', error);
+    alert('이미지 처리 중 오류가 발생했습니다. 스크린샷을 이용해주세요.');
   }
 }
