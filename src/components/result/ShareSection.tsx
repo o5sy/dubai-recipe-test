@@ -79,9 +79,24 @@ export default function ShareSection({ resultCardProps }: ShareSectionProps) {
 
         {/* SNS 공유 섹션 */}
         <SNSShareButtons
-          onKakaoShare={() => shareToKakao({ ...shareData, imageUrl })}
+          onKakaoShare={() => {
+            console.log('=== 카카오톡 공유 데이터 ===');
+            console.log('shareData:', shareData);
+            console.log('imageUrl:', imageUrl);
+            console.log('currentUrl:', currentUrl);
+            console.log('window.location.origin:', window.location.origin);
+            console.log('===========================');
+            shareToKakao({ ...shareData, imageUrl });
+          }}
           onInstagramShare={() => shareGeneral(shareData)}
-          onFacebookShare={() => shareToFacebook(shareData)}
+          onFacebookShare={() => {
+            console.log('=== 페이스북 공유 데이터 ===');
+            console.log('shareData:', shareData);
+            console.log('currentUrl:', currentUrl);
+            console.log('window.location.origin:', window.location.origin);
+            console.log('===========================');
+            shareToFacebook(shareData);
+          }}
           onTwitterShare={() => shareToTwitter(shareData)}
           onCopyLink={() =>
             copyLinkToClipboard({
