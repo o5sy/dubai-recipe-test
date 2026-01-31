@@ -42,3 +42,7 @@ next-env.d.ts
 
 # editor settings
 .vscode
+
+# code agent settings
+.claude
+.gemini
