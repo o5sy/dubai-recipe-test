@@ -57,6 +57,7 @@ export default function QuestionPage() {
           question={currentQuestion}
           questionNumber={currentQuestionIndex + 1}
           onAnswer={handleAnswer}
+          selectedValue={answers[currentQuestion.id]}
         />
         <NavigationButtons
           onPrevious={handlePrevious}
