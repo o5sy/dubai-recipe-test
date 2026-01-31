@@ -24,7 +24,7 @@ export default function NavigationButtons({
   return (
     <div className="mt-6 flex gap-3">
       {showPrevious && (
-        <button onClick={onPrevious} className="btn-secondary flex-1 px-6 py-3">
+        <button onClick={onPrevious} className="btn-secondary flex-1 px-6 py-3 select-none">
           ← 이전
         </button>
       )}
@@ -32,7 +32,7 @@ export default function NavigationButtons({
         <button
           onClick={onNext}
           disabled={nextDisabled}
-          className="btn-primary flex-1 px-6 py-3 disabled:cursor-not-allowed disabled:opacity-50"
+          className="btn-primary flex-1 px-6 py-3 disabled:cursor-not-allowed disabled:opacity-50 select-none"
         >
           다음 →
         </button>

@@ -27,7 +27,7 @@ export default function AnswerButton({
     <button
       onMouseUp={handleInteraction}
       onTouchEnd={handleInteraction}
-      className={`btn-secondary w-full px-6 py-4 text-left transition-transform hover:scale-[1.02] ${className}`}
+      className={`btn-secondary w-full px-6 py-4 text-left transition-transform select-none hover:scale-[1.02] ${className}`}
     >
       {text}
     </button>
