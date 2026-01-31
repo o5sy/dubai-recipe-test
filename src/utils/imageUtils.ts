@@ -32,8 +32,14 @@ async function captureElementAsBlob(
     scale: 1, // 원본 크기로 설정 (기기 픽셀 비율의 기본값 무시)
   });
 
-  return new Promise<Blob | null>((resolve) => {
-    canvas.toBlob(resolve, 'image/png');
+  return new Promise<Blob | null>((resolve, reject) => {
+    canvas.toBlob((blob) => {
+      if (blob) {
+        resolve(blob);
+      } else {
+        reject(null);
+      }
+    }, 'image/png');
   });
 }
 
