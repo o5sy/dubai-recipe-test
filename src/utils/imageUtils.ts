@@ -1,4 +1,5 @@
 import html2canvas from 'html2canvas-pro';
+import { toast } from 'sonner';
 
 interface SaveAsImageOptions {
   elementId: string;
@@ -150,12 +151,12 @@ export async function shareAsImage({
     } catch (error) {
       // 다운로드도 실패한 경우
       console.error('다운로드 실패:', error);
-      alert(
-        '이미지 저장에 실패했습니다.\n브라우저 설정을 확인하거나 스크린샷을 이용해주세요.'
-      );
+      toast.warning('이미지 저장에 실패했습니다.\n스크린샷을 이용해주세요.');
     }
   } catch (error) {
     console.error('이미지 처리 중 오류 발생:', error);
-    alert('이미지 처리 중 오류가 발생했습니다. 스크린샷을 이용해주세요.');
+    toast.warning(
+      '이미지 처리 중 오류가 발생했습니다. 스크린샷을 이용해주세요.'
+    );
   }
 }

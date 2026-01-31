@@ -1,4 +1,5 @@
 import KakaoScript from '@/components/KakaoScript';
+import { Toaster } from '@/components/ui/toaster';
 import { SERVICE_URL } from '@/constants/app';
 import type { Metadata } from 'next';
 import { Geist } from 'next/font/google';
@@ -43,6 +44,7 @@ export default function RootLayout({
       <body className={`${geistSans.variable} antialiased`}>
         <KakaoScript />
         {children}
+        <Toaster />
       </body>
     </html>
   );
