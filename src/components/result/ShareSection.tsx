@@ -10,6 +10,7 @@ import {
   shareToKakao,
   shareToTwitter,
 } from '@/utils/shareUtils';
+import { usePathname } from 'next/navigation';
 import { createRoot } from 'react-dom/client';
 import { toast } from 'sonner';
 import GeneralShareButton from './GeneralShareButton';
@@ -22,9 +23,14 @@ interface ShareSectionProps {
 }
 
 export default function ShareSection({ resultCardProps }: ShareSectionProps) {
+  const pathname = usePathname();
+  const currentUrl =
+    typeof window !== 'undefined'
+      ? `${window.location.origin}${pathname}`
+      : null;
+
   const shareData = {
-    // TODO 결과 페이지 url 로 수정 (현재 링크 복사 시 /question으로 복사됨)
-    url: typeof window !== 'undefined' ? window.location.href : '',
+    url: currentUrl || SERVICE_URL,
     title: `나는 어떤 두쫀쿠일까? 🍪`,
     description: `나는 ${resultCardProps.name}!`,
   };
