@@ -5,6 +5,7 @@ interface SaveAsImageOptions {
   backgroundColor?: string;
   filename?: string;
   text?: string;
+  timeout?: number;
 }
 
 interface CaptureOptions {
@@ -27,8 +28,8 @@ async function captureElementAsBlob(
 
   const canvas = await html2canvas(element, {
     backgroundColor,
-    useCORS: true,
-    logging: false,
+    logging: true, // TODO 기능 안정화 확인되면 삭제
+    scale: 1, // 원본 크기로 설정 (기기 픽셀 비율의 기본값 무시)
   });
 
   return new Promise<Blob | null>((resolve) => {
@@ -93,36 +94,35 @@ export async function shareAsImage({
   text,
   backgroundColor = '#f5f1e8',
   filename = `${new Date().toISOString()}.png`,
+  timeout = 3000, // 타임아웃 기본값 3초
 }: SaveAsImageOptions): Promise<void> {
-  console.log('shareAsImage');
   try {
-    // 1. HTML 요소를 Blob으로 캡처
-    const blob = await captureElementAsBlob(elementId, {
-      backgroundColor,
-    })
-      .catch((e) => {
-        console.error('captureElementAsBlob 오류남: ', e);
-      })
-      .finally(() => {
-        console.log('captureElementAsBlob 완료');
-      });
+    // 1. HTML 요소를 Blob으로 캡처 (타임아웃 적용)
+    const timeoutPromise = new Promise<null>((_, reject) => {
+      setTimeout(() => reject(new Error('TIMEOUT')), timeout);
+    });
+
+    const blob = await Promise.race([
+      captureElementAsBlob(elementId, { backgroundColor }),
+      timeoutPromise,
+    ]).catch((error) => {
+      if (error instanceof Error && error.message === 'TIMEOUT') {
+        console.error('이미지 생성 타임아웃 에러 발생: ', error);
+        return null;
+      }
+      throw error;
+    });
 
     if (!blob) {
-      alert('이미지 생성에 실패했습니다.');
-      console.error('이미지 생성에 실패했습니다.');
       return;
     }
-    console.log('이미지 생성 성공');
 
     const file = new File([blob], filename, { type: 'image/png' });
 
     // 2. Web Share API 지원 확인 및 공유 시도
     if (canShareImageFile(file)) {
-      console.log('share api 지원 확인 완료');
       try {
         await shareImageFile(file, text);
-        console.log('이미지 공유 완료');
-
         return;
       } catch (error) {
         // 사용자가 공유를 취소한 경우
@@ -130,22 +130,17 @@ export async function shareAsImage({
           error instanceof Error &&
           (error.name === 'AbortError' || error.name === 'NotAllowedError')
         ) {
-          console.error('공유가 취소되었습니다');
           return;
         }
 
         // 공유 실패 시 다운로드 시도
         console.error('이미지 공유 실패, 다운로드 방식으로 전환:', error);
       }
-    } else {
-      console.log('share api 지원 안됨');
     }
 
     // 3. Web Share API 미지원 또는 실패 시 다운로드 시도
     try {
-      console.log('이미지 다운로드 시도');
       downloadImageFile(blob, filename);
-      console.log('이미지 다운로드 성공');
     } catch (error) {
       // 다운로드도 실패한 경우
       console.error('다운로드 실패:', error);
@@ -155,6 +150,6 @@ export async function shareAsImage({
     }
   } catch (error) {
     console.error('이미지 처리 중 오류 발생:', error);
-    alert('이미지 처리 중 오류가 발생했습니다.');
+    alert('이미지 처리 중 오류가 발생했습니다. 스크린샷을 이용해주세요.');
   }
 }
