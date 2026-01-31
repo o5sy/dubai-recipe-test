@@ -22,20 +22,22 @@ export default function NavigationButtons({
   nextDisabled,
 }: NavigationButtonsProps) {
   return (
-    <div className="mt-6 flex gap-3">
-      {showPrevious && (
+    <div className="mt-8 flex justify-between gap-4">
+      {showPrevious ? (
         <button
           onClick={onPrevious}
-          className="btn-secondary flex-1 px-6 py-3 select-none"
+          className="select-none rounded-lg px-6 py-4 text-sm text-gray-500 transition-colors hover:bg-gray-100 hover:text-gray-700 active:bg-gray-200"
         >
           ← 이전
         </button>
+      ) : (
+        <div />
       )}
       {showNext && (
         <button
-          className="btn-primary flex-1 px-6 py-3 select-none disabled:cursor-not-allowed disabled:opacity-50"
           onClick={onNext}
           disabled={nextDisabled}
+          className="select-none rounded-lg px-6 py-4 text-sm text-gray-500 transition-colors hover:bg-gray-100 hover:text-gray-700 active:bg-gray-200 disabled:cursor-not-allowed disabled:opacity-30"
         >
           다음 →
         </button>
