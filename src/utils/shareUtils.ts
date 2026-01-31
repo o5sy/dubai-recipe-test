@@ -1,3 +1,5 @@
+import { toast } from 'sonner';
+
 export interface ShareData {
   title: string;
   url: string;
@@ -83,7 +85,7 @@ export const shareGeneral = (data: Omit<ShareData, 'description'>) => {
     copyLinkToClipboard({
       link: data.url,
       onCopy: () => {
-        alert('링크가 복사되었습니다!');
+        toast.success('링크가 복사되었습니다!');
       },
     });
   }

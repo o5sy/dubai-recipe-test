@@ -11,6 +11,7 @@ import {
   shareToTwitter,
 } from '@/utils/shareUtils';
 import { createRoot } from 'react-dom/client';
+import { toast } from 'sonner';
 import GeneralShareButton from './GeneralShareButton';
 import ResultImageCard, { ResultImageCardProps } from './ResultImageCard';
 import SaveImageButton from './SaveImageButton';
@@ -79,8 +80,7 @@ export default function ShareSection({ resultCardProps }: ShareSectionProps) {
             copyLinkToClipboard({
               link: shareData.url,
               onCopy: () => {
-                // TODO: 토스트로 변경하기
-                alert('링크가 복사되었습니다!');
+                toast.success('링크가 복사되었습니다!');
               },
             })
           }
