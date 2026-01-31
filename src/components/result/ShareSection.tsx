@@ -23,6 +23,7 @@ interface ShareSectionProps {
 
 export default function ShareSection({ resultCardProps }: ShareSectionProps) {
   const shareData = {
+    // TODO 결과 페이지 url 로 수정 (현재 링크 복사 시 /question으로 복사됨)
     url: typeof window !== 'undefined' ? window.location.href : '',
     title: `나는 어떤 두쫀쿠일까? 🍪`,
     description: `나는 ${resultCardProps.name}!`,
