@@ -33,7 +33,7 @@ export default function ShareSection({ resultCardProps }: ShareSectionProps) {
 
   const shareData = {
     url: currentUrl || SERVICE_URL,
-    title: `나는 어떤 두쫀쿠일까? 🍪`,
+    title: '나는 어떤 두쫀쿠일까? 🧆',
     description: `나는 ${resultCardProps.name}!`,
   };
 
@@ -57,9 +57,6 @@ export default function ShareSection({ resultCardProps }: ShareSectionProps) {
       console.log('🚀 ~ ShareSection ~ shareData:', shareData);
     }
   );
-  console.log('--');
-  console.log('🚀 ~ ShareSection ~ currentUrl:', currentUrl);
-  console.log('🚀 ~ ShareSection ~ shareData:', shareData);
 
   const imageUrl =
     typeof window !== 'undefined'
@@ -108,7 +105,6 @@ export default function ShareSection({ resultCardProps }: ShareSectionProps) {
           onKakaoShare={() => {
             console.log('=== 카카오톡 공유 데이터 ===');
             console.log('shareData:', shareData);
-            console.log('imageUrl:', imageUrl);
             console.log('currentUrl:', currentUrl);
             console.log('window.location.origin:', window.location.origin);
             console.log('===========================');
