@@ -11,6 +11,7 @@ import {
   shareToTwitter,
 } from '@/utils/shareUtils';
 import { usePathname } from 'next/navigation';
+import { useSyncExternalStore } from 'react';
 import { createRoot } from 'react-dom/client';
 import { toast } from 'sonner';
 import GeneralShareButton from './GeneralShareButton';
@@ -24,6 +25,7 @@ interface ShareSectionProps {
 
 export default function ShareSection({ resultCardProps }: ShareSectionProps) {
   const pathname = usePathname();
+
   const currentUrl =
     typeof window !== 'undefined'
       ? `${window.location.origin}${pathname}`
@@ -31,9 +33,30 @@ export default function ShareSection({ resultCardProps }: ShareSectionProps) {
 
   const shareData = {
     url: currentUrl || SERVICE_URL,
-    title: `나는 어떤 두쫀쿠일까? 🍪`,
+    title: '나는 어떤 두쫀쿠일까? 🧆',
     description: `나는 ${resultCardProps.name}!`,
   };
+
+  const store = useSyncExternalStore(
+    // (() => {}) => () => {},
+    (onStoreChange: () => void) => {
+      // 여기서 onStoreChange를 어딘가에 등록함
+
+      return () => {
+        // 여기서 onStoreChange 등록을 해제함
+      };
+    },
+    () => {
+      console.log('getSnapshot');
+      console.log('🚀 ~ ShareSection ~ currentUrl:', currentUrl);
+      console.log('🚀 ~ ShareSection ~ shareData:', shareData);
+    },
+    () => {
+      console.log('getServerSnapshot');
+      console.log('🚀 ~ ShareSection ~ currentUrl:', currentUrl);
+      console.log('🚀 ~ ShareSection ~ shareData:', shareData);
+    }
+  );
 
   const imageUrl =
     typeof window !== 'undefined'
@@ -79,9 +102,23 @@ export default function ShareSection({ resultCardProps }: ShareSectionProps) {
 
         {/* SNS 공유 섹션 */}
         <SNSShareButtons
-          onKakaoShare={() => shareToKakao({ ...shareData, imageUrl })}
+          onKakaoShare={() => {
+            console.log('=== 카카오톡 공유 데이터 ===');
+            console.log('shareData:', shareData);
+            console.log('currentUrl:', currentUrl);
+            console.log('window.location.origin:', window.location.origin);
+            console.log('===========================');
+            shareToKakao({ ...shareData, imageUrl });
+          }}
           onInstagramShare={() => shareGeneral(shareData)}
-          onFacebookShare={() => shareToFacebook(shareData)}
+          onFacebookShare={() => {
+            console.log('=== 페이스북 공유 데이터 ===');
+            console.log('shareData:', shareData);
+            console.log('currentUrl:', currentUrl);
+            console.log('window.location.origin:', window.location.origin);
+            console.log('===========================');
+            shareToFacebook(shareData);
+          }}
           onTwitterShare={() => shareToTwitter(shareData)}
           onCopyLink={() =>
             copyLinkToClipboard({
