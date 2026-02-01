@@ -26,7 +26,7 @@ export default function NavigationButtons({
       {showPrevious ? (
         <button
           onClick={onPrevious}
-          className="select-none rounded-lg px-6 py-4 text-sm text-gray-500 transition-colors hover:bg-gray-100 hover:text-gray-700 active:bg-gray-200"
+          className="rounded-lg px-6 py-4 text-sm text-gray-500 transition-colors select-none hover:bg-gray-100 hover:text-gray-700 active:bg-gray-200"
         >
           ← 이전
         </button>
@@ -37,7 +37,7 @@ export default function NavigationButtons({
         <button
           onClick={onNext}
           disabled={nextDisabled}
-          className="select-none rounded-lg px-6 py-4 text-sm text-gray-500 transition-colors hover:bg-gray-100 hover:text-gray-700 active:bg-gray-200 disabled:cursor-not-allowed disabled:opacity-30"
+          className="rounded-lg px-6 py-4 text-sm text-gray-500 transition-colors select-none hover:bg-gray-100 hover:text-gray-700 active:bg-gray-200 disabled:cursor-not-allowed disabled:opacity-30"
         >
           다음 →
         </button>

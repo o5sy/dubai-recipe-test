@@ -29,7 +29,6 @@ async function captureElementAsBlob(
 
   const canvas = await html2canvas(element, {
     backgroundColor,
-    logging: true, // TODO 기능 안정화 확인되면 삭제
     scale: 1, // 원본 크기로 설정 (기기 픽셀 비율의 기본값 무시)
   });
 
@@ -94,6 +93,55 @@ function downloadImageFile(blob: Blob, filename: string): void {
 }
 
 /**
+ * 타임아웃 적용하여 이미지 캡처
+ */
+async function captureWithTimeout(
+  elementId: string,
+  backgroundColor: string,
+  timeout: number
+): Promise<Blob | null> {
+  const timeoutPromise = new Promise<null>((_, reject) => {
+    setTimeout(() => reject(new Error('TIMEOUT')), timeout);
+  });
+
+  try {
+    return await Promise.race([
+      captureElementAsBlob(elementId, { backgroundColor }),
+      timeoutPromise,
+    ]);
+  } catch (error) {
+    if (error instanceof Error && error.message === 'TIMEOUT') {
+      console.error('이미지 생성 타임아웃');
+    }
+    return null;
+  }
+}
+
+/**
+ * Web Share API로 이미지 공유 시도
+ * @returns 성공 또는 사용자 취소 시 true, 실패 시 false
+ */
+async function tryShareImage(file: File, text?: string): Promise<boolean> {
+  if (!canShareImageFile(file)) {
+    return false;
+  }
+
+  try {
+    await shareImageFile(file, text);
+    return true;
+  } catch (error) {
+    // 사용자가 취소한 경우 - 더 이상 진행하지 않음
+    if (error instanceof Error && error.name === 'AbortError') {
+      return true;
+    }
+
+    // NotAllowedError 등 - 다운로드로 폴백
+    console.error('이미지 공유 실패, 다운로드로 전환:', error);
+    return false;
+  }
+}
+
+/**
  * 이미지 저장/공유 메인 함수
  */
 export async function shareAsImage({
@@ -101,60 +149,26 @@ export async function shareAsImage({
   text,
   backgroundColor = '#f5f1e8',
   filename = `${new Date().toISOString()}.png`,
-  timeout = 3000, // 타임아웃 기본값 3초
+  timeout = 3000,
 }: SaveAsImageOptions): Promise<void> {
   try {
-    // 1. HTML 요소를 Blob으로 캡처 (타임아웃 적용)
-    const timeoutPromise = new Promise<null>((_, reject) => {
-      setTimeout(() => reject(new Error('TIMEOUT')), timeout);
-    });
-
-    const blob = await Promise.race([
-      captureElementAsBlob(elementId, { backgroundColor }),
-      timeoutPromise,
-    ]).catch((error) => {
-      if (error instanceof Error && error.message === 'TIMEOUT') {
-        console.error('이미지 생성 타임아웃 에러 발생: ', error);
-        return null;
-      }
-      throw error;
-    });
+    const blob = await captureWithTimeout(elementId, backgroundColor, timeout);
 
     if (!blob) {
+      toast.warning('이미지 생성에 실패했습니다.\n스크린샷을 이용해주세요.');
       return;
     }
 
     const file = new File([blob], filename, { type: 'image/png' });
 
-    // 2. Web Share API 지원 확인 및 공유 시도
-    if (canShareImageFile(file)) {
-      try {
-        await shareImageFile(file, text);
-        return;
-      } catch (error) {
-        // 사용자가 공유를 취소한 경우
-        if (
-          error instanceof Error &&
-          (error.name === 'AbortError' || error.name === 'NotAllowedError')
-        ) {
-          return;
-        }
+    // 공유 시도, 성공하면 종료
+    const shared = await tryShareImage(file, text);
+    if (shared) return;
 
-        // 공유 실패 시 다운로드 시도
-        console.error('이미지 공유 실패, 다운로드 방식으로 전환:', error);
-      }
-    }
-
-    // 3. Web Share API 미지원 또는 실패 시 다운로드 시도
-    try {
-      downloadImageFile(blob, filename);
-    } catch (error) {
-      // 다운로드도 실패한 경우
-      console.error('다운로드 실패:', error);
-      toast.warning('이미지 저장에 실패했습니다.\n스크린샷을 이용해주세요.');
-    }
+    // 공유 실패 시 다운로드
+    downloadImageFile(blob, filename);
   } catch (error) {
-    console.error('이미지 처리 중 오류 발생:', error);
+    console.error('이미지 처리 중 오류:', error);
     toast.warning(
       '이미지 처리 중 오류가 발생했습니다. 스크린샷을 이용해주세요.'
     );
