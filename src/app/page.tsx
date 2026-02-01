@@ -4,10 +4,10 @@ export default function Home() {
   return (
     <div className="flex min-h-screen flex-col items-center justify-center px-4 py-8">
       <main className="flex w-full max-w-md flex-col items-center text-center">
-        {/* 쿠키 이모지 아이콘 */}
+        {/* 팔라펠 이모지 아이콘 */}
         <div className="animate-bounce-slow mb-8 text-7xl">
           <span role="img" aria-label="cookie">
-            🍪
+            🧆
           </span>
         </div>
 
