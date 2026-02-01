@@ -11,6 +11,7 @@ import {
   shareToTwitter,
 } from '@/utils/shareUtils';
 import { usePathname } from 'next/navigation';
+import { useSyncExternalStore } from 'react';
 import { createRoot } from 'react-dom/client';
 import { toast } from 'sonner';
 import GeneralShareButton from './GeneralShareButton';
@@ -24,6 +25,7 @@ interface ShareSectionProps {
 
 export default function ShareSection({ resultCardProps }: ShareSectionProps) {
   const pathname = usePathname();
+
   const currentUrl =
     typeof window !== 'undefined'
       ? `${window.location.origin}${pathname}`
@@ -34,6 +36,30 @@ export default function ShareSection({ resultCardProps }: ShareSectionProps) {
     title: `나는 어떤 두쫀쿠일까? 🍪`,
     description: `나는 ${resultCardProps.name}!`,
   };
+
+  const store = useSyncExternalStore(
+    // (() => {}) => () => {},
+    (onStoreChange: () => void) => {
+      // 여기서 onStoreChange를 어딘가에 등록함
+
+      return () => {
+        // 여기서 onStoreChange 등록을 해제함
+      };
+    },
+    () => {
+      console.log('getSnapshot');
+      console.log('🚀 ~ ShareSection ~ currentUrl:', currentUrl);
+      console.log('🚀 ~ ShareSection ~ shareData:', shareData);
+    },
+    () => {
+      console.log('getServerSnapshot');
+      console.log('🚀 ~ ShareSection ~ currentUrl:', currentUrl);
+      console.log('🚀 ~ ShareSection ~ shareData:', shareData);
+    }
+  );
+  console.log('--');
+  console.log('🚀 ~ ShareSection ~ currentUrl:', currentUrl);
+  console.log('🚀 ~ ShareSection ~ shareData:', shareData);
 
   const imageUrl =
     typeof window !== 'undefined'
