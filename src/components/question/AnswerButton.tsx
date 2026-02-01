@@ -18,21 +18,13 @@ export default function AnswerButton({
   isSelected = false,
   className = '',
 }: AnswerButtonProps) {
-  const handleInteraction = (
-    e: React.MouseEvent<HTMLButtonElement> | React.TouchEvent<HTMLButtonElement>
-  ) => {
-    // 포커스 제거하여 active 상태 해제
-    e.currentTarget.blur();
-    onClick();
-  };
-
   const buttonClass = isSelected ? 'btn-primary' : 'btn-secondary';
 
   return (
     <button
       className={`${buttonClass} w-full px-6 py-4 text-left transition-transform select-none hover:scale-[1.02] ${className}`}
-      onMouseUp={handleInteraction}
-      onTouchEnd={handleInteraction}
+      onMouseUp={onClick}
+      onTouchEnd={onClick}
     >
       {text}
     </button>

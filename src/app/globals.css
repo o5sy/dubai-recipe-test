@@ -62,15 +62,6 @@ body {
   box-shadow: 0 4px 14px rgba(147, 197, 114, 0.3);
 }
 
-.btn-primary:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 6px 20px rgba(147, 197, 114, 0.4);
-}
-
-.btn-primary:active {
-  transform: translateY(0);
-}
-
 .btn-secondary {
   background: var(--color-beige);
   color: var(--color-text-primary);
@@ -81,7 +72,14 @@ body {
   border: 2px solid var(--color-cookie);
 }
 
-.btn-secondary:hover {
+@media (hover: hover) {
+  .btn-secondary:hover {
+    background: var(--color-cookie);
+    color: white;
+  }
+}
+
+.btn-secondary:active {
   background: var(--color-cookie);
   color: white;
 }
