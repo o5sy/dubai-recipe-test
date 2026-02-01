@@ -21,7 +21,7 @@ export const shareToKakao = (data: ShareDataForKakao) => {
     return;
   }
 
-  const shareConfig = {
+  kakao.Share.sendDefault({
     objectType: 'feed',
     content: {
       title: data.title,
@@ -41,13 +41,7 @@ export const shareToKakao = (data: ShareDataForKakao) => {
         },
       },
     ],
-  };
-
-  console.log('=== 카카오 API에 전송되는 실제 데이터 ===');
-  console.log('shareConfig:', JSON.stringify(shareConfig, null, 2));
-  console.log('=========================================');
-
-  kakao.Share.sendDefault(shareConfig);
+  });
 };
 
 /**
