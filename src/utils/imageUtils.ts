@@ -29,7 +29,7 @@ async function captureElementAsBlob(
 
   const canvas = await html2canvas(element, {
     backgroundColor,
-    scale: 1, // 원본 크기로 설정 (기기 픽셀 비율의 기본값 무시)
+    scale: 2, // 고해상도로 변경 (1일 경우 적용하지 않은 회색 색상이 나타남)
   });
 
   return new Promise<Blob | null>((resolve, reject) => {
