@@ -45,9 +45,9 @@ export default function RootLayout({
   return (
     <html lang="ko">
       <body className={`${geistSans.variable} antialiased`}>
-        <ThirdPartyScripts />
         {children}
         <Toaster />
+        <ThirdPartyScripts />
       </body>
     </html>
   );
