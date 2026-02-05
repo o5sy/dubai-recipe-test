@@ -37,6 +37,12 @@ export default function Home() {
 
         {/* 푸터 */}
         <p className="text-muted mt-12 text-xs">* 재미로 보는 테스트입니다</p>
+        <Link
+          href="/privacy"
+          className="text-muted mt-2 text-xs underline hover:text-(--color-text-secondary)"
+        >
+          개인정보 처리방침
+        </Link>
       </main>
     </div>
   );
