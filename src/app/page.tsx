@@ -2,7 +2,13 @@ import Link from 'next/link';
 
 export default function Home() {
   return (
-    <div className="flex h-dvh flex-col items-center justify-center overflow-hidden px-4">
+    <div className="relative flex h-dvh flex-col items-center justify-center overflow-hidden px-4">
+      <Link
+        href="/types"
+        className="absolute top-4 right-4 text-xs text-(--color-text-muted) hover:text-(--color-text-secondary) transition-colors"
+      >
+        유형 둘러보기 →
+      </Link>
       <main className="flex w-full max-w-md flex-col items-center text-center">
         {/* 팔라펠 이모지 아이콘 */}
         <div className="animate-bounce-slow mb-8 text-7xl">
@@ -31,6 +37,12 @@ export default function Home() {
 
         {/* 푸터 */}
         <p className="text-muted mt-12 text-xs">* 재미로 보는 테스트입니다</p>
+        <Link
+          href="/privacy"
+          className="text-muted mt-2 text-xs underline hover:text-(--color-text-secondary)"
+        >
+          개인정보 처리방침
+        </Link>
       </main>
     </div>
   );
