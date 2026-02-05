@@ -1,6 +1,8 @@
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
 
+import AdSenseScript from '@/components/AdSenseScript';
+import CompatibilitySection from '@/components/result/CompatibilitySection';
 import ResultCard from '@/components/result/ResultCard';
 import ShareSection from '@/components/result/ShareSection';
 import { results } from '@/data/results';
@@ -29,6 +31,7 @@ export default async function ResultPage({ params }: ResultPageProps) {
 
   return (
     <div className="flex min-h-screen flex-col items-center justify-center bg-(--color-bg) px-4 pt-8 pb-20">
+      <AdSenseScript />
       <main className="flex w-full max-w-2xl flex-col items-center">
         {/* 결과 카드 */}
         <ResultCard
@@ -48,13 +51,22 @@ export default async function ResultPage({ params }: ResultPageProps) {
           }}
         />
 
-        {/* 테스트 다시하기 */}
-        <div className="mb-8">
+        {/* 궁합 섹션 */}
+        <CompatibilitySection currentType={result.type} />
+
+        {/* 하단 버튼 */}
+        <div className="mb-4 flex w-full flex-col items-center gap-3">
           <Link
             href="/question"
             className="text-chocolate inline-block rounded-full bg-white px-8 py-3 text-sm font-medium shadow-sm transition-all hover:shadow-md"
           >
             테스트 다시하기
+          </Link>
+          <Link
+            href="/types"
+            className="text-chocolate inline-block rounded-full bg-white px-8 py-3 text-sm font-medium shadow-sm transition-all hover:shadow-md"
+          >
+            모든 유형 보기
           </Link>
         </div>
 
