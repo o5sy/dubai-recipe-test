@@ -41,6 +41,9 @@ export default async function ResultPage({ params }: ResultPageProps) {
           description={result.description}
         />
 
+        {/* 궁합 섹션 */}
+        <CompatibilitySection currentType={result.type} />
+
         {/* 공유 섹션 */}
         <ShareSection
           resultCardProps={{
@@ -50,9 +53,6 @@ export default async function ResultPage({ params }: ResultPageProps) {
             description: result.description,
           }}
         />
-
-        {/* 궁합 섹션 */}
-        <CompatibilitySection currentType={result.type} />
 
         {/* 하단 버튼 */}
         <div className="mb-4 flex w-full flex-col items-center gap-3">
