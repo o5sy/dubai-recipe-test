@@ -1,10 +1,10 @@
-import Link from 'next/link';
 import { notFound } from 'next/navigation';
 
 import AdSenseScript from '@/components/AdSenseScript';
 import CompatibilitySection from '@/components/result/CompatibilitySection';
 import ResultCard from '@/components/result/ResultCard';
 import ShareSection from '@/components/result/ShareSection';
+import { TrackableLink, ResultPageTracking } from '@/components/analytics';
 import { results } from '@/data/results';
 
 interface ResultPageProps {
@@ -30,54 +30,69 @@ export default async function ResultPage({ params }: ResultPageProps) {
   }
 
   return (
-    <div className="flex min-h-screen flex-col items-center justify-center bg-(--color-bg) px-4 pt-8 pb-20">
-      <AdSenseScript />
-      <main className="flex w-full max-w-2xl flex-col items-center">
-        {/* 결과 카드 */}
-        <ResultCard
-          type={result.type}
-          name={result.name}
-          tags={result.tags}
-          description={result.description}
-        />
+    <ResultPageTracking mbtiType={result.type} resultName={result.name}>
+      <div className="flex min-h-screen flex-col items-center justify-center bg-(--color-bg) px-4 pt-8 pb-20">
+          <AdSenseScript />
+          <main className="flex w-full max-w-2xl flex-col items-center">
+            {/* 결과 카드 */}
+            <ResultCard
+              type={result.type}
+              name={result.name}
+              tags={result.tags}
+              description={result.description}
+            />
 
-        {/* 궁합 섹션 */}
-        <CompatibilitySection currentType={result.type} />
+            {/* 궁합 섹션 */}
+            <CompatibilitySection currentType={result.type} />
 
-        {/* 공유 섹션 */}
-        <ShareSection
-          resultCardProps={{
-            type: result.type,
-            name: result.name,
-            tags: result.tags,
-            description: result.description,
-          }}
-        />
+            {/* 공유 섹션 */}
+            <ShareSection
+              mbtiType={result.type}
+              resultCardProps={{
+                type: result.type,
+                name: result.name,
+                tags: result.tags,
+                description: result.description,
+              }}
+            />
 
-        {/* 하단 버튼 */}
-        <div className="mb-4 flex w-full flex-col items-center gap-3">
-          <Link
-            href="/question"
-            className="text-chocolate inline-block rounded-full bg-white px-8 py-3 text-sm font-medium shadow-sm transition-all hover:shadow-md"
-          >
-            테스트 다시하기
-          </Link>
-          <Link
-            href="/types"
-            className="text-chocolate inline-block rounded-full bg-white px-8 py-3 text-sm font-medium shadow-sm transition-all hover:shadow-md"
-          >
-            모든 유형 보기
-          </Link>
-        </div>
+            {/* 하단 버튼 */}
+            <div className="mb-4 flex w-full flex-col items-center gap-3">
+              <TrackableLink
+                href="/question"
+                trackEvent="retake_test"
+                trackParams={{
+                  from_page: 'result_page',
+                  mbti_type: result.type,
+                }}
+                className="text-chocolate inline-block rounded-full bg-white px-8 py-3 text-sm font-medium shadow-sm transition-all hover:shadow-md"
+              >
+                테스트 다시하기
+              </TrackableLink>
+              <TrackableLink
+                href="/types"
+                trackEvent="view_all_types"
+                trackParams={{
+                  from_page: 'result_page',
+                  mbti_type: result.type,
+                }}
+                className="text-chocolate inline-block rounded-full bg-white px-8 py-3 text-sm font-medium shadow-sm transition-all hover:shadow-md"
+              >
+                모든 유형 보기
+              </TrackableLink>
+            </div>
 
-        {/* 하단 링크 */}
-        <Link
-          href="/"
-          className="text-sm text-(--color-text-muted) underline hover:text-(--color-text-secondary)"
-        >
-          처음으로 돌아가기
-        </Link>
-      </main>
-    </div>
+            {/* 하단 링크 */}
+            <TrackableLink
+              href="/"
+              trackEvent="home_click"
+              trackParams={{ from_page: 'result_page' }}
+              className="text-sm text-(--color-text-muted) underline hover:text-(--color-text-secondary)"
+            >
+              처음으로 돌아가기
+            </TrackableLink>
+          </main>
+      </div>
+    </ResultPageTracking>
   );
 }
