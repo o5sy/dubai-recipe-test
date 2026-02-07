@@ -6,6 +6,7 @@ import NavigationButtons from '@/components/question/NavigationButtons';
 import { questions } from '@/data/questions';
 import type { MBTIValue } from '@/types/question';
 import { calculateMBTI } from '@/utils/calculateMBTI';
+import { useTrackQuestion } from '@/lib/analytics';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 
@@ -18,9 +19,22 @@ export default function QuestionPage() {
   const currentQuestion = questions[currentQuestionIndex];
   const hasAnsweredCurrent = !!answers[currentQuestion.id];
 
+  // 질문 페이지 추적 훅
+  const { trackAnswer, trackNavigation } = useTrackQuestion({
+    currentQuestion: currentQuestionIndex + 1,
+    totalQuestions,
+  });
+
   const handleAnswer = (value: MBTIValue) => {
     const newAnswers = { ...answers, [currentQuestion.id]: value };
     setAnswers(newAnswers);
+
+    // 답변 추적
+    trackAnswer({
+      question_number: currentQuestionIndex + 1,
+      total_questions: totalQuestions,
+      answer_value: value,
+    });
 
     if (currentQuestionIndex < totalQuestions - 1) {
       setCurrentQuestionIndex(currentQuestionIndex + 1);
@@ -32,12 +46,22 @@ export default function QuestionPage() {
 
   const handlePrevious = () => {
     if (currentQuestionIndex > 0) {
+      trackNavigation({
+        direction: 'previous',
+        from_question: currentQuestionIndex + 1,
+        to_question: currentQuestionIndex,
+      });
       setCurrentQuestionIndex(currentQuestionIndex - 1);
     }
   };
 
   const handleNext = () => {
     if (currentQuestionIndex < totalQuestions - 1) {
+      trackNavigation({
+        direction: 'next',
+        from_question: currentQuestionIndex + 1,
+        to_question: currentQuestionIndex + 2,
+      });
       setCurrentQuestionIndex(currentQuestionIndex + 1);
     } else if (hasAnsweredCurrent) {
       const mbtiType = calculateMBTI(answers);
