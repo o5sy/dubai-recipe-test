@@ -1,6 +1,7 @@
 'use client';
 
 import { SERVICE_URL } from '@/constants/app';
+import { analytics } from '@/lib/analytics';
 import { getCharacterImagePathByMbtiType } from '@/utils/getImagePath';
 import { shareAsImage } from '@/utils/imageUtils';
 import {
@@ -19,10 +20,14 @@ import SaveImageButton from './SaveImageButton';
 import SNSShareButtons from './SNSShareButtons';
 
 interface ShareSectionProps {
+  mbtiType: string;
   resultCardProps: Omit<ResultImageCardProps, 'id'>;
 }
 
-export default function ShareSection({ resultCardProps }: ShareSectionProps) {
+export default function ShareSection({
+  mbtiType,
+  resultCardProps,
+}: ShareSectionProps) {
   const pathname = usePathname();
 
   const currentUrl =
@@ -42,6 +47,8 @@ export default function ShareSection({ resultCardProps }: ShareSectionProps) {
       : '';
 
   const handleSaveImage = async () => {
+    analytics.trackImageSave(mbtiType);
+
     const RESULT_CARD_ID = 'result-image-card-to-save';
 
     const container = document.createElement('div');
@@ -52,13 +59,18 @@ export default function ShareSection({ resultCardProps }: ShareSectionProps) {
 
     await new Promise((resolve) => setTimeout(resolve, 100));
 
-    await shareAsImage({
-      elementId: RESULT_CARD_ID,
-      text: `나도 테스트 하러 가기 👉\n${SERVICE_URL}`,
-    });
-
-    root.unmount();
-    document.body.removeChild(container);
+    try {
+      await shareAsImage({
+        elementId: RESULT_CARD_ID,
+        text: `나도 테스트 하러 가기 👉\n${SERVICE_URL}`,
+      });
+      analytics.trackImageSaveSuccess(mbtiType);
+    } catch {
+      // 이미지 저장 실패 시 에러는 무시
+    } finally {
+      root.unmount();
+      document.body.removeChild(container);
+    }
   };
 
   return (
@@ -66,9 +78,14 @@ export default function ShareSection({ resultCardProps }: ShareSectionProps) {
       {/* 버튼 영역 */}
       <div className="mb-10 flex w-full gap-3">
         <GeneralShareButton
-          onShare={() =>
-            shareGeneral({ title: shareData.title, url: shareData.url })
-          }
+          onShare={() => {
+            analytics.trackShareClick({
+              mbti_type: mbtiType,
+              share_platform: 'instagram',
+              share_method: 'general',
+            });
+            shareGeneral({ title: shareData.title, url: shareData.url });
+          }}
         />
         <SaveImageButton onSaveImage={handleSaveImage} />
       </div>
@@ -80,18 +97,55 @@ export default function ShareSection({ resultCardProps }: ShareSectionProps) {
 
         {/* SNS 공유 섹션 */}
         <SNSShareButtons
-          onKakaoShare={() => shareToKakao({ ...shareData, imageUrl })}
-          onInstagramShare={() => shareGeneral(shareData)}
-          onFacebookShare={() => shareToFacebook(shareData)}
-          onTwitterShare={() => shareToTwitter(shareData)}
-          onCopyLink={() =>
+          onKakaoShare={() => {
+            analytics.trackShareClick({
+              mbti_type: mbtiType,
+              share_platform: 'kakao',
+            });
+            shareToKakao({ ...shareData, imageUrl });
+            analytics.trackShareSuccess({
+              mbti_type: mbtiType,
+              share_platform: 'kakao',
+            });
+          }}
+          onInstagramShare={() => {
+            analytics.trackShareClick({
+              mbti_type: mbtiType,
+              share_platform: 'instagram',
+            });
+            shareGeneral(shareData);
+          }}
+          onFacebookShare={() => {
+            analytics.trackShareClick({
+              mbti_type: mbtiType,
+              share_platform: 'facebook',
+            });
+            shareToFacebook(shareData);
+            analytics.trackShareSuccess({
+              mbti_type: mbtiType,
+              share_platform: 'facebook',
+            });
+          }}
+          onTwitterShare={() => {
+            analytics.trackShareClick({
+              mbti_type: mbtiType,
+              share_platform: 'twitter',
+            });
+            shareToTwitter(shareData);
+            analytics.trackShareSuccess({
+              mbti_type: mbtiType,
+              share_platform: 'twitter',
+            });
+          }}
+          onCopyLink={() => {
             copyLinkToClipboard({
               link: shareData.url,
               onCopy: () => {
                 toast.success('링크가 복사되었습니다!');
+                analytics.trackLinkCopy(mbtiType);
               },
-            })
-          }
+            });
+          }}
         />
       </div>
     </>

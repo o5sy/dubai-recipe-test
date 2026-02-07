@@ -1,14 +1,15 @@
-import Link from 'next/link';
+import { TrackableLink } from '@/components/analytics';
 
 export default function Home() {
   return (
     <div className="relative flex h-dvh flex-col items-center justify-center overflow-hidden px-4">
-      <Link
+      <TrackableLink
         href="/types"
-        className="absolute top-4 right-4 text-xs text-(--color-text-muted) hover:text-(--color-text-secondary) transition-colors"
+        trackEvent="browse_types"
+        className="absolute top-4 right-4 text-xs text-(--color-text-muted) transition-colors hover:text-(--color-text-secondary)"
       >
         유형 둘러보기 →
-      </Link>
+      </TrackableLink>
       <main className="flex w-full max-w-md flex-col items-center text-center">
         {/* 팔라펠 이모지 아이콘 */}
         <div className="animate-bounce-slow mb-8 text-7xl">
@@ -31,18 +32,24 @@ export default function Home() {
         </p>
 
         {/* 시작 버튼 */}
-        <Link href="/question" className="btn-primary text-lg">
+        <TrackableLink
+          href="/question"
+          trackEvent="test_start"
+          trackParams={{ button_location: 'hero' }}
+          className="btn-primary text-lg"
+        >
           테스트 시작하기
-        </Link>
+        </TrackableLink>
 
         {/* 푸터 */}
         <p className="text-muted mt-12 text-xs">* 재미로 보는 테스트입니다</p>
-        <Link
+        <TrackableLink
           href="/privacy"
+          trackEvent="privacy_policy"
           className="text-muted mt-2 text-xs underline hover:text-(--color-text-secondary)"
         >
           개인정보 처리방침
-        </Link>
+        </TrackableLink>
       </main>
     </div>
   );
