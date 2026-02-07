@@ -45,7 +45,11 @@ export const useTrackQuestion = (options: UseTrackQuestionOptions) => {
 
   // 답변 선택 추적
   const handleAnswer = useCallback(
-    (params: Omit<QuestionEventParams, 'progress_percentage'>) => {
+    (params: {
+      question_number: number;
+      total_questions: number;
+      answer_value?: string;
+    }) => {
       const progressPercentage = Math.round(
         (params.question_number / params.total_questions) * 100
       );
