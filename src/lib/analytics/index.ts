@@ -16,33 +16,36 @@
  * 5. Share: 공유 버튼 클릭
  * 6. Viral: 공유 완료
  *
- * 사용 예시:
+ * 사용 예시 (커스텀 훅 사용 권장):
+ * ```typescript
+ * import { useTrackLanding } from '@/lib/analytics';
+ *
+ * function LandingPage() {
+ *   const { trackTestStart } = useTrackLanding();
+ *
+ *   return (
+ *     <button onClick={() => trackTestStart()}>
+ *       테스트 시작하기
+ *     </button>
+ *   );
+ * }
+ * ```
+ *
+ * 직접 이벤트 함수 사용:
  * ```typescript
  * import { analytics } from '@/lib/analytics';
  *
- * // 테스트 시작
  * analytics.trackTestStart();
- *
- * // 질문 답변
- * analytics.trackQuestionAnswer({
- *   question_number: 1,
- *   total_questions: 12,
- *   answer_value: 'E',
- *   progress_percentage: 8
- * });
- *
- * // 카카오톡 공유
- * analytics.trackShareClick({
- *   mbti_type: 'ENFP',
- *   share_platform: 'kakao'
- * });
  * ```
  */
 
 // Core
 export { sendEvent, sendPageView, setUserProperties } from './core';
 
-// Event modules
+// Hooks (권장 사용 방법)
+export * from './hooks';
+
+// Event modules (직접 사용 가능)
 export * from './events/landing';
 export * from './events/question';
 export * from './events/result';
